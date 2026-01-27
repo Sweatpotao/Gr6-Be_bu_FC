@@ -1,0 +1,14 @@
+experiment:
+  runs: 1
+
+problem:
+  grid_pathfinding:
+    diagonal: false
+
+algorithms:
+  BFS: {}
+  DFS:
+    depth_limit: 50
+  UCS: {}
+  Greedy: {}
+  AStar: {}
