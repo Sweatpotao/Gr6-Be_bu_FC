@@ -1,0 +1,112 @@
+# Cấu hình Thuật toán Tìm kiếm Cổ điển
+# File này chứa cấu hình cho tất cả các thuật toán tìm kiếm cổ điển trong dự án.
+# Mỗi mục thuật toán bao gồm metadata và các tham số định nghĩa hành vi của nó.
+
+algorithms:
+  # Tìm kiếm Theo Chiều Rộng (Breadth-First Search)
+  bfs:
+    name: "Breadth-First Search"
+    class: "BFS"
+    module: "Algorithm.classical.bfs"
+    description: "Tìm kiếm theo chiều rộng khám phá tất cả các nút ở mức độ sâu hiện tại trước khi chuyển sang các nút ở mức độ sâu tiếp theo. Đảm bảo lờii giải tối ưu trong đồ thị không trọng số."
+    type: "uninformed"
+    properties:
+      completeness: true
+      optimality: true
+      time_complexity: "O(b^d)"
+      space_complexity: "O(b^d)"
+    parameters: {}
+
+  # Tìm kiếm Theo Chiều Sâu (Depth-First Search)
+  dfs:
+    name: "Depth-First Search"
+    class: "DFS"
+    module: "Algorithm.classical.dfs"
+    description: "Tìm kiếm theo chiều sâu khám phá xa nhất có thể dọc theo mỗi nhánh trước khi quay lui. Không đảm bảo lờii giải tối ưu."
+    type: "uninformed"
+    properties:
+      completeness: false
+      optimality: false
+      time_complexity: "O(b^m)"
+      space_complexity: "O(b*m)"
+    parameters: {}
+
+  # Tìm kiếm Chi Phí Đồng Nhất (Uniform Cost Search)
+  ucs:
+    name: "Uniform Cost Search"
+    class: "UCS"
+    module: "Algorithm.classical.usc"
+    description: "Tìm kiếm chi phí đồng nhất khám phá các nút có tổng chi phí tích lũy thấp nhất trước. Đảm bảo lờii giải tối ưu trong đồ thị có trọng số."
+    type: "uninformed"
+    properties:
+      completeness: true
+      optimality: true
+      time_complexity: "O(b^(1 + C*/ε))"
+      space_complexity: "O(b^(1 + C*/ε))"
+    parameters: {}
+
+  # Tìm kiếm Tham Lam Tốt Nhất (Greedy Best-First Search)
+  greedy:
+    name: "Greedy Best-First Search"
+    class: "GreedySearch"
+    module: "Algorithm.classical.greedy"
+    description: "Tìm kiếm tham lam mở rộng nút dường như gần nhất với mục tiêu, sử dụng hàm heuristic h(n). Không đảm bảo lờii giải tối ưu."
+    type: "informed"
+    properties:
+      completeness: false
+      optimality: false
+      time_complexity: "O(b^d)"
+      space_complexity: "O(b^d)"
+    parameters:
+      heuristic:
+        description: "Hàm heuristic được sử dụng để ước lượng khoảng cách"
+        default: "manhattan"
+        options: ["manhattan", "euclidean"]
+
+  # Tìm kiếm A*
+  astar:
+    name: "A* Search"
+    class: "AStar"
+    module: "Algorithm.classical.astar"
+    description: "Tìm kiếm A* kết hợp chi phí để đến nút với chi phí ước lượng đến mục tiêu (f = g + h). Đảm bảo lờii giải tối ưu nếu heuristic là có thể chấp nhận được."
+    type: "informed"
+    properties:
+      completeness: true
+      optimality: true
+      time_complexity: "O(b^d)"
+      space_complexity: "O(b^d)"
+    parameters:
+      heuristic:
+        description: "Hàm heuristic được sử dụng để ước lượng khoảng cách"
+        default: "manhattan"
+        options: ["manhattan", "euclidean"]
+
+# Cấu hình toàn cục cho tìm kiếm cổ điển
+global:
+  # Thuật toán mặc định sử dụng nếu không được chỉ định
+  default_algorithm: "astar"
+
+  # Điều kiện dừng tìm kiếm
+  termination:
+    max_nodes_expanded: 10000
+    max_time_seconds: 60
+    max_depth: 100
+
+  # Các mức độ chi tiết khi thực thi tìm kiếm
+  verbosity:
+    levels: [0, 1, 2, 3]
+    default: 1
+    description: "0: im lặng, 1: thông tin cơ bản, 2: chi tiết từng bước, 3: gỡ lỗi"
+
+# Problem-specific configuration
+problem_config:
+  # Grid pathfinding problem
+  grid_pathfinding:
+    default_algorithm: "astar"
+    heuristic: "manhattan"
+    movement: "4-directional"
+    cost: "uniform"
+
+  # General problem configuration
+  general:
+    default_algorithm: "bfs"
