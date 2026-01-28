@@ -1,0 +1,67 @@
+==================================================
+Experiment time: 2026-01-25 16:15:25.988865
+
+Algorithm: runs
+==================================================
+Experiment time: 2026-01-25 16:17:43.627513
+Algorithm: BFS
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.440007e-05
+==================================================
+Experiment time: 2026-01-25 16:28:01.392867
+Algorithm: BFS
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.309994e-05
+Nodes expanded: 9
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-25 16:28:01.393369
+Algorithm: DFS
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.639997e-05
+Nodes expanded: 10
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-25 16:28:01.393876
+Algorithm: UCS
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.889999e-05
+Nodes expanded: 17
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-25 16:28:01.394201
+Algorithm: Greedy
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.579996e-05
+Nodes expanded: 8
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-25 16:28:01.394552
+Algorithm: AStar
+Runs: 1
+Best cost: 6
+Mean cost: 6.0
+Std cost: 0.0
+Mean time: 2.480007e-05
+Nodes expanded: 8
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
