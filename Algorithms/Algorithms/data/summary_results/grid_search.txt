@@ -65,3 +65,63 @@ Mean time: 2.480007e-05
 Nodes expanded: 8
 Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
 
+==================================================
+Experiment time: 2026-01-29 14:10:06.403920
+Algorithm: BFS
+Runs: 1
+Best cost: 6.0000
+Mean cost: 6.0000
+Std cost: 0.0000
+Success rate: 100.00%
+Mean time: 1.880001e-05 seconds
+Nodes expanded: 9
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-29 14:10:06.404514
+Algorithm: DFS
+Runs: 1
+Best cost: 6.0000
+Mean cost: 6.0000
+Std cost: 0.0000
+Success rate: 100.00%
+Mean time: 2.150000e-05 seconds
+Nodes expanded: 10
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-29 14:10:06.404993
+Algorithm: UCS
+Runs: 1
+Best cost: 6.0000
+Mean cost: 6.0000
+Std cost: 0.0000
+Success rate: 100.00%
+Mean time: 2.550000e-05 seconds
+Nodes expanded: 17
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-29 14:10:06.405512
+Algorithm: Greedy
+Runs: 1
+Best cost: 6.0000
+Mean cost: 6.0000
+Std cost: 0.0000
+Success rate: 100.00%
+Mean time: 2.199999e-05 seconds
+Nodes expanded: 8
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+
+==================================================
+Experiment time: 2026-01-29 14:10:06.406014
+Algorithm: AStar
+Runs: 1
+Best cost: 6.0000
+Mean cost: 6.0000
+Std cost: 0.0000
+Success rate: 100.00%
+Mean time: 4.570000e-05 seconds
+Nodes expanded: 8
+Path: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3), (3, 3)]
+

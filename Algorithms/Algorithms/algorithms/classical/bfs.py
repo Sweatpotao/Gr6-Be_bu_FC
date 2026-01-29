@@ -1,5 +1,5 @@
 from collections import deque
-from algorithms.base.search_base import SearchAlgorithm
+from Algorithms.Algorithms.algorithms.base.search_base import SearchAlgorithm
 
 class BFS(SearchAlgorithm):
     def search(self):

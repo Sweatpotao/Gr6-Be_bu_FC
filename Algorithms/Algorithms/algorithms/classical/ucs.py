@@ -1,5 +1,5 @@
 import heapq
-from algorithms.base.search_base import SearchAlgorithm
+from Algorithms.Algorithms.algorithms.base.search_base import SearchAlgorithm
 
 class UCS(SearchAlgorithm):
     def search(self):
@@ -27,4 +27,3 @@ class UCS(SearchAlgorithm):
                 )
 
         return self._build_result()
-

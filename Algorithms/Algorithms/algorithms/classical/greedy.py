@@ -1,5 +1,5 @@
 import heapq
-from algorithms.base.search_base import SearchAlgorithm
+from Algorithms.Algorithms.algorithms.base.search_base import SearchAlgorithm
 
 class Greedy(SearchAlgorithm):
     def search(self):

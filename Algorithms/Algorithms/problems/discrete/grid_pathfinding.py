@@ -1,4 +1,4 @@
-from problems.discrete_problem import DiscreteProblem
+from ..discrete_problem import DiscreteProblem
 import math
 
 class GridPathfinding(DiscreteProblem):
