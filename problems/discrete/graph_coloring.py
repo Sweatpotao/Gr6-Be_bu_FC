@@ -11,6 +11,7 @@ class GraphColoring(DiscreteProblem):
         return tuple([-1] * self.n)
 
     def is_goal(self, state):
+        # Nếu đã tô hết các node (vì get_neighbors đã check valid nên ko cần check lại conflict)
         return -1 not in state
 
     def get_neighbors(self, state):
@@ -37,3 +38,6 @@ class GraphColoring(DiscreteProblem):
             if self.adj[node][neighbor] == 1 and state[neighbor] == color:
                 return False
         return True
+    
+    def heuristic(self, state):
+        return state.count(-1)

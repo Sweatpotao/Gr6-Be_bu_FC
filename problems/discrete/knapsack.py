@@ -2,13 +2,24 @@ from problems.discrete_problem import DiscreteProblem
 
 class Knapsack(DiscreteProblem):
     def __init__(self, values, weights, capacity):
-        self.values = values
-        self.weights = weights
         self.capacity = capacity
         self.n = len(values)
 
+         # Lưu item dạng tuple: (ratio, weight, value)
+        self.items = []
+        for v, w in zip(values, weights):
+            if w == 0:
+                ratio = float("inf")  # tránh chia 0
+            else:
+                ratio = v / w
+            self.items.append((ratio, w, v))
+
+        # Sort giảm dần theo ratio để heuristic fractional nhanh
+        self.items.sort(reverse=True)
+
+
     def get_start_state(self):
-        # State: (index, current_weight)
+        # State: (index - sorted items, current_weight)
         return (0, 0)
 
     def is_goal(self, state):
@@ -21,28 +32,38 @@ class Knapsack(DiscreteProblem):
             return []
 
         neighbors = []
+        ratio, w, v = self.items[idx]
+
         # Option 1: Không chọn item nào
         neighbors.append(((idx + 1, current_weight), 0))
 
         # Option 2: Chọn item vừa capacity
-        if current_weight + self.weights[idx] <= self.capacity:
-            # Vì SearchAlgorithm tìm cost nhỏ nhất, ta dùng số âm của value làm cost
-            neighbors.append(((idx + 1, current_weight + self.weights[idx]), -self.values[idx]))
+        if current_weight + w <= self.capacity:
+            neighbors.append(((idx + 1, current_weight + w), -v))
 
         return neighbors
 
     def heuristic(self, state):
+        # Heuristic = - (upper bound value còn có thể lấy thêm)
+        # Fractional knapsack => bound lạc quan, giúp A* chạy nhanh hơn.
+        
         idx, current_weight = state
-        remaining_capacity = self.capacity - current_weight
+        remaining_cap = self.capacity - current_weight
+        est_additional_value = 0.0
 
-        # Tính heuristic greedy theo value/weight
-        items = [(self.values[i]/self.weights[i], self.weights[i], self.values[i]) for i in range(idx, self.n)]
-        items.sort(reverse=True)  # ưu tiên value/weight cao
+        for i in range(idx, self.n):
+            ratio, w, v = self.items[i]
 
-        est_value = 0
-        for ratio, w, v in items:
-            if w <= remaining_capacity:
-                remaining_capacity -= w
-                est_value += v
+            if remaining_cap <= 0:
+                break
 
-        return -est_value  # cost = -value
+            if w <= remaining_cap:
+                remaining_cap -= w
+                est_additional_value += v
+            else:
+                # lấy 1 phần item cuối (fractional)
+                if w != 0:
+                    est_additional_value += ratio * remaining_cap
+                break
+
+        return -est_additional_value

@@ -1,9 +1,11 @@
 experiment:
-  runs: 1
+  runs: 10
 
 problem:
   grid_pathfinding:
     diagonal: false
+  tsp: {}
+  knapsack: {}
 
 algorithms:
   BFS: {}
