@@ -1,11 +1,11 @@
-from problems.discrete_problem import DiscreteProblem
+from problems.discrete.discrete_problem import DiscreteProblem
 import math
 
 class GridPathfinding(DiscreteProblem):
     def __init__(self, grid, start, goal, diagonal=False):
         self.grid = grid
-        self.start = start
-        self.goal = goal
+        self.start = tuple(start)
+        self.goal = tuple(goal)
         self.diagonal = diagonal
         self.rows = len(grid)
         self.cols = len(grid[0])

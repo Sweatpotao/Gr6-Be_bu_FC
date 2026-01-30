@@ -1,0 +1,20 @@
+experiment:
+  runs: 4
+
+problem:
+  name: griewank
+  params:
+    dim: 10
+    bounds: [[-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600]]
+
+algorithms:
+  HillClimbing:
+    step_size: 0.5
+    n_neighbors: 20
+    max_iters: 1000
+    max_evaluations: 10000
+  SimulatedAnnealing:
+    initial_temp: 100
+    cooling_rate: 0.95
+    max_iters: 2000
+    max_evaluations: 10000

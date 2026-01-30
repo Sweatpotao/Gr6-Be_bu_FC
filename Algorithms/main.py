@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import yaml
 from problems.discrete.grid_pathfinding import GridPathfinding
 from algorithms.classical.bfs import BFS
@@ -47,3 +48,18 @@ for name, Algo in algorithms.items():
     file_path = os.path.join(current_dir, "data", "summary_results", "grid_search.txt")
     save_summary_txt(name, summary, file_path)
     print(name, summary)
+=======
+from experiment.run_experiment import run_experiment
+from experiment.logger import save_summary_txt
+
+if __name__ == "__main__":
+    results = run_experiment("config/grid_pathfinding.yaml")
+
+    for algo, summary in results.items():
+        save_summary_txt(
+            algo,
+            summary,
+            "data/summary_results/grid_pathfinding.txt"
+        )
+        print(algo, summary)
+>>>>>>> b48bc3d2c962571356227dca0eba443e675d34b7

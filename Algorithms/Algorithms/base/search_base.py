@@ -24,8 +24,8 @@ class SearchAlgorithm(ABC):
                 "found": False
             }
         return {
+            "final_score": self.cost,
             "solution": self.solution,
-            "cost": self.cost,
             "nodes_expanded": self.nodes_expanded,
-            "found": True
+            "found": self.solution is not None
         }

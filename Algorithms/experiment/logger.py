@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+<<<<<<< HEAD
 def save_summary_txt(algo_name, summary, filename="summary_results.txt"):
     dirpath = os.path.dirname(filename)
     if dirpath:
@@ -34,3 +35,24 @@ def save_summary_txt(algo_name, summary, filename="summary_results.txt"):
             else:
                 f.write("Path: No solution found\n")
         f.write("\n")
+=======
+def save_summary_txt(algo_name, summary, filename):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+    with open(filename, "a", encoding="utf-8") as f:
+        f.write("=" * 60 + "\n")
+        f.write(f"Experiment time : {datetime.now()}\n")
+        f.write(f"Algorithm       : {algo_name}\n")
+        f.write(f"Runs            : {summary['runs']}\n")
+
+        if summary["best_score"] is None:
+            f.write("Status          : No solution found\n")
+        else:
+            f.write(f"Best score      : {summary['best_score']:.6f}\n")
+            f.write(f"Mean score      : {summary['mean_score']:.6f}\n")
+            f.write(f"Std score       : {summary['std_score']:.6f}\n")
+
+        f.write(f"Success rate    : {summary['success_rate']:.2%}\n")
+        f.write(f"Mean time (s)   : {summary['mean_time']:.6e}\n")
+        f.write(f"Mean effort     : {summary['mean_effort']:.2f}\n\n")
+>>>>>>> b48bc3d2c962571356227dca0eba443e675d34b7
