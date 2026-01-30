@@ -1,5 +1,6 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class BaseProblem(ABC):
-    """Marker interface cho mọi bài toán"""
-    pass
+    @abstractmethod
+    def clone(self):
+        pass

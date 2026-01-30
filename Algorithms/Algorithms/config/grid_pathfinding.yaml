@@ -1,0 +1,22 @@
+experiment:
+  runs: 1
+
+problem:
+  name: grid_pathfinding
+  params:
+    grid:
+      - [0, 0, 0, 0]
+      - [1, 1, 0, 1]
+      - [0, 0, 0, 0]
+      - [0, 1, 1, 0]
+    start: [0, 0]
+    goal: [3, 3]
+    diagonal: false
+
+algorithms:
+  BFS: {}
+  DFS:
+    depth_limit: 50
+  UCS: {}
+  Greedy: {}
+  AStar: {}
