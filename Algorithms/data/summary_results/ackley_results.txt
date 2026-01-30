@@ -1,0 +1,44 @@
+============================================================
+Experiment time : 2026-01-30 14:32:02.900015
+Algorithm       : HillClimbing
+Runs            : 4
+Best score      : 19.629968
+Mean score      : 20.209066
+Std score       : 0.335314
+Success rate    : 100.00%
+Mean time (s)   : 6.799417e-02
+Mean effort     : 41.00
+
+============================================================
+Experiment time : 2026-01-30 14:32:02.900604
+Algorithm       : SimulatedAnnealing
+Runs            : 4
+Best score      : 17.931321
+Mean score      : 19.112978
+Std score       : 0.690062
+Success rate    : 100.00%
+Mean time (s)   : 2.281718e-02
+Mean effort     : 2001.00
+
+============================================================
+Experiment time : 2026-01-30 14:32:33.207042
+Algorithm       : HillClimbing
+Runs            : 4
+Best score      : 20.426362
+Mean score      : 20.504847
+Std score       : 0.065371
+Success rate    : 100.00%
+Mean time (s)   : 3.202825e-03
+Mean effort     : 71.00
+
+============================================================
+Experiment time : 2026-01-30 14:32:33.207373
+Algorithm       : SimulatedAnnealing
+Runs            : 4
+Best score      : 19.268682
+Mean score      : 19.653004
+Std score       : 0.246551
+Success rate    : 100.00%
+Mean time (s)   : 1.891277e-02
+Mean effort     : 2001.00
+

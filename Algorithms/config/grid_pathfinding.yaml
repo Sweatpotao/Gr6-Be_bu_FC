@@ -1,5 +1,5 @@
 experiment:
-  runs: 1
+  runs: 4
 
 problem:
   name: grid_pathfinding

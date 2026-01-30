@@ -1,0 +1,23 @@
+experiment:
+  runs: 4
+
+problem:
+  name: ackley
+  params:
+    dim: 10
+    bounds: [[-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768], [-32.768, 32.768]]
+    a: 20.0
+    b: 0.2
+    c: 6.283185307
+
+algorithms:
+  HillClimbing:
+    step_size: 0.5
+    n_neighbors: 20
+    max_iters: 1000
+    max_evaluations: 10000
+  SimulatedAnnealing:
+    initial_temp: 100
+    cooling_rate: 0.95
+    max_iters: 2000
+    max_evaluations: 10000

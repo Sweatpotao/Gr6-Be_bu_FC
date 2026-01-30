@@ -1,0 +1,15 @@
+experiment:
+  runs: 4
+
+problem:
+  name: n_queens
+  params:
+    n: 8
+
+algorithms:
+  BFS: {}
+  DFS:
+    depth_limit: 1000
+  UCS: {}
+  Greedy: {}
+  AStar: {}
