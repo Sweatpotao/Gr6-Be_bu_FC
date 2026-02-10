@@ -1,5 +1,4 @@
 import numpy as np
-import time
 from algorithms.base.optimizer_base import Optimizer
 
 class GeneticAlgorithm(Optimizer):
@@ -10,6 +9,10 @@ class GeneticAlgorithm(Optimizer):
         crossover_rate = self.config.get("crossover_rate", 0.9)
         elite_size = self.config.get("elite_size", 2)
         max_iters = self.config.get("max_iters", 1000)
+        
+        # Validate elite_size
+        if elite_size >= pop_size:
+            elite_size = max(1, pop_size // 10)  # Default to 10% of population
 
         # 2. Initialize Population
         dim = self.problem.get_dimension()

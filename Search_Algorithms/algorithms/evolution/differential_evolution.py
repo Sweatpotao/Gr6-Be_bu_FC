@@ -29,6 +29,11 @@ class DifferentialEvolution(Optimizer):
             if self.evaluations >= self.max_evals:
                 break
             
+            # Convergence check: stop if population has converged
+            pop_std = np.std(population)
+            if pop_std < 1e-10:
+                break
+            
             new_population = []
             new_fitness = []
 
