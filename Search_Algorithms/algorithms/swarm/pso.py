@@ -52,6 +52,10 @@ class PSO(Optimizer):
                           (c1 * r1 * (pbest_x - particles_x)) + \
                           (c2 * r2 * (gbest_x - particles_x)) # gbest_x broadcast xuống
 
+            # Velocity clamping to prevent explosion
+            v_max = self.config.get("v_max", (high - low) * 0.5)
+            particles_v = np.clip(particles_v, -v_max, v_max)
+
             # Update Position
             particles_x = particles_x + particles_v
             
