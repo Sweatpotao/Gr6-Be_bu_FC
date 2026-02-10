@@ -20,8 +20,16 @@ class CuckooSearch(Optimizer):
         
         # Xử lý trường hợp evaluate trả về None (nếu quá số lần đánh giá ngay từ đầu)
         if None in fitness:
-            self.best_solution = nests[0]
-            self.best_fitness = float('inf')
+            # Use valid evaluations if any, otherwise use first nest
+            valid_fitness = [f for f in fitness if f is not None]
+            if valid_fitness:
+                valid_indices = [i for i, f in enumerate(fitness) if f is not None]
+                best_valid_idx = valid_indices[np.argmin(valid_fitness)]
+                self.best_solution = nests[best_valid_idx].copy()
+                self.best_fitness = fitness[best_valid_idx]
+            else:
+                self.best_solution = nests[0].copy()
+                self.best_fitness = float('inf')
             return self._build_result()
 
         # Tìm best ban đầu
