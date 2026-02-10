@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from algorithms.base.optimizer_base import Optimizer
 
 class HillClimbing(Optimizer):
