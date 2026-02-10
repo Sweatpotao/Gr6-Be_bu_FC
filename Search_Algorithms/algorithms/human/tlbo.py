@@ -33,11 +33,15 @@ class TLBO(Optimizer):
             mean_pop = np.mean(population, axis=0)
 
             # --- Teacher Phase ---
+            # Store updates separately to avoid affecting mean calculation
+            new_population = population.copy()
+            new_fitness = fitness.copy()
+            
             for i in range(pop_size):
                 if self.evaluations >= self.max_evals: break
                 
                 # Teaching factor TF có thể là 1 hoặc 2
-                tf = np.random.randint(1, 3) 
+                tf = np.random.randint(1, 3)
                 r = np.random.rand(dim)
                 
                 # Học sinh cố gắng học theo thầy
@@ -49,8 +53,11 @@ class TLBO(Optimizer):
                 if f_new is None: break
 
                 if f_new < fitness[i]:
-                    population[i] = new_sol
-                    fitness[i] = f_new
+                    new_population[i] = new_sol
+                    new_fitness[i] = f_new
+            
+            population = new_population
+            fitness = new_fitness
 
             # --- Learner Phase ---
             for i in range(pop_size):
