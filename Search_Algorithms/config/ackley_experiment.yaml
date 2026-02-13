@@ -16,8 +16,10 @@ algorithms:
     n_neighbors: 20
     max_iters: 1000
     max_evaluations: 10000
+    timeout: 60
   SimulatedAnnealing:
     initial_temp: 100
     cooling_rate: 0.95
     max_iters: 2000
     max_evaluations: 10000
+    timeout: 60

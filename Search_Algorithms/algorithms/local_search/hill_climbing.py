@@ -4,7 +4,7 @@ from algorithms.base.optimizer_base import Optimizer
 
 class HillClimbing(Optimizer):
     def run(self):
-        start_time = time.time()
+        self.start_time = time.time()
 
         step_size = self.config.get("step_size", 0.05)
         n_neighbors = self.config.get("n_neighbors", 20)
@@ -18,6 +18,10 @@ class HillClimbing(Optimizer):
         self.history.append(current_f)
 
         for _ in range(max_iters):
+            # Kiểm tra timeout
+            if self._check_timeout():
+                break
+
             improved = False
 
             for _ in range(n_neighbors):
@@ -42,5 +46,5 @@ class HillClimbing(Optimizer):
 
         self.best_solution = current
         self.best_fitness = current_f
-        self.runtime = time.time() - start_time
+        self.runtime = time.time() - self.start_time
         return self._build_result()

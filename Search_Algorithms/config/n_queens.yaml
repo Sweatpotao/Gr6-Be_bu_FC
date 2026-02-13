@@ -4,12 +4,17 @@ experiment:
 problem:
   name: n_queens
   params:
-    n: 8
+    n: 5
 
 algorithms:
-  BFS: {}
+  BFS:
+    timeout: 60  # Giới hạn 60 giây
   DFS:
     depth_limit: 1000
-  UCS: {}
-  Greedy: {}
-  AStar: {}
+    timeout: 60
+  UCS:
+    timeout: 60
+  Greedy:
+    timeout: 60
+  AStar:
+    timeout: 60

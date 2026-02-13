@@ -5,7 +5,7 @@ from algorithms.base.optimizer_base import Optimizer
 
 class SimulatedAnnealing(Optimizer):
     def run(self):
-        start_time = time.time()
+        self.start_time = time.time()
 
         T = self.config.get("initial_temp", 100)
         alpha = self.config.get("cooling_rate", 0.95)
@@ -19,6 +19,10 @@ class SimulatedAnnealing(Optimizer):
         self.history.append(current_f)
 
         for _ in range(max_iters):
+            # Kiểm tra timeout
+            if self._check_timeout():
+                break
+
             if self.evaluations >= self.max_evals:
                 break
 
@@ -39,5 +43,5 @@ class SimulatedAnnealing(Optimizer):
 
         self.best_solution = current
         self.best_fitness = current_f
-        self.runtime = time.time() - start_time
+        self.runtime = time.time() - self.start_time
         return self._build_result()
