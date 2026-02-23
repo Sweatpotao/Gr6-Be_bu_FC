@@ -68,3 +68,7 @@ class TSP(DiscreteProblem):
             min_to_start = 0
 
         return min_from_curr + min_to_start
+
+    def clone(self):
+        """Create a fresh copy of this TSP problem for independent runs."""
+        return TSP(self.matrix, self.start_city)

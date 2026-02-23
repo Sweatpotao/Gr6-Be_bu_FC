@@ -5,6 +5,9 @@ from problems.continuous.rosenbrock import Rosenbrock
 from problems.continuous.griewnak import Griewank
 from problems.discrete.grid_pathfinding import GridPathfinding
 from problems.discrete.n_queens import NQueens
+from problems.discrete.tsp import TSP
+from problems.discrete.knapsack import Knapsack
+from problems.discrete.graph_coloring import GraphColoring
 
 from algorithms.local_search.hill_climbing import HillClimbing
 from algorithms.local_search.simulated_annealing import SimulatedAnnealing
@@ -22,7 +25,10 @@ PROBLEM_REGISTRY = {
     "rosenbrock": Rosenbrock,
     "griewank": Griewank,
     "grid_pathfinding": GridPathfinding,
-    "n_queens": NQueens
+    "n_queens": NQueens,
+    "tsp": TSP,
+    "knapsack": Knapsack,
+    "graph_coloring": GraphColoring,
 }
 
 ALGORITHM_REGISTRY = {
