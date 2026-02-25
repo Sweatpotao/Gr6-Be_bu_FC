@@ -67,3 +67,10 @@ class Knapsack(DiscreteProblem):
                 break
 
         return -est_additional_value
+
+    def clone(self):
+        """Create a fresh copy of this Knapsack problem for independent runs."""
+        # Extract values and weights from items (items stored as: ratio, weight, value)
+        values = [item[2] for item in self.items]
+        weights = [item[1] for item in self.items]
+        return Knapsack(values, weights, self.capacity)

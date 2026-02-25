@@ -10,7 +10,7 @@ class ContinuousProblem(BaseProblem, ABC):
 
     @abstractmethod
     def get_bounds(self):
-        """ return (lower, upper) """
+        """ return (low, high) """
         pass
 
     @abstractmethod

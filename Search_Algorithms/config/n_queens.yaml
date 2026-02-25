@@ -4,13 +4,17 @@ experiment:
 problem:
   name: n_queens
   params:
-    n: 8
+    n: 5
 
 algorithms:
   BFS:
-    max_nodes: 50000
+    timeout: 60
   DFS:
     depth_limit: 1000
-  UCS: {}
-  Greedy: {}
-  AStar: {}
+    timeout: 60
+  UCS:
+    timeout: 60
+  Greedy:
+    timeout: 60
+  AStar:
+    timeout: 60

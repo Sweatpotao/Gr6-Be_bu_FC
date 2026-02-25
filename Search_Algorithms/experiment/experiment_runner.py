@@ -9,7 +9,7 @@ class ExperimentRunner:
         self.runs = runs
 
     def run(self):
-        scores, times, efforts, histories, successes = [], [], [], [], []
+        scores, times, efforts, histories, successes, timeouts = [], [], [], [], [], []
 
         for _ in range(self.runs):
             prob = self.problem.clone() if hasattr(self.problem, "clone") else self.problem
@@ -26,6 +26,12 @@ class ExperimentRunner:
                 successes.append(1)
             else:
                 successes.append(0)
+
+            # Theo dõi timeout
+            if result.get("timeout", False):
+                timeouts.append(1)
+            else:
+                timeouts.append(0)
 
             times.append(runtime)
 
@@ -51,6 +57,9 @@ class ExperimentRunner:
 
             # Reliability
             "success_rate": np.mean(successes),
+
+            # Timeout tracking
+            "timeout_count": sum(timeouts),
 
             # Convergence
             "histories": histories

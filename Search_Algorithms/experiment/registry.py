@@ -10,6 +10,8 @@ from problems.discrete.grid_pathfinding import GridPathfinding
 from problems.discrete.knapsack import Knapsack
 from problems.discrete.n_queens import NQueens
 from problems.discrete.tsp import TSP
+from problems.discrete.knapsack import Knapsack
+from problems.discrete.graph_coloring import GraphColoring
 
 #  classical
 from algorithms.classical.bfs import BFS
@@ -42,9 +44,10 @@ PROBLEM_REGISTRY = {
     # Discrete
     "graph_coloring": GraphColoring,
     "grid_pathfinding": GridPathfinding,
-    "knapsack": Knapsack,
     "n_queens": NQueens,
-    "tsp": TSP
+    "tsp": TSP,
+    "knapsack": Knapsack,
+    "graph_coloring": GraphColoring,
 }
 
 ALGORITHM_REGISTRY = {

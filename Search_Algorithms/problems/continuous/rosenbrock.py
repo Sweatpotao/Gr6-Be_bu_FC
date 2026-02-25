@@ -6,7 +6,7 @@ Hàm có dạng thung lũng hẹp, rất khó tối ưu vì gradient nhỏ
 """
 
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import Tuple
 from problems.continuous.continuous_problem import ContinuousProblem
 
 
@@ -31,7 +31,7 @@ class Rosenbrock(ContinuousProblem):
     
     Attributes:
         dim: Số chiều của không gian tìm kiếm (phải >= 2)
-        bounds: Giới hạn của không gian tìm kiếm
+        bounds: Tuple (low, high) áp dụng chung cho mọi chiều
     
     Examples:
         >>> rosenbrock = Rosenbrock(dim=2)
@@ -40,32 +40,45 @@ class Rosenbrock(ContinuousProblem):
         0.0
     """
 
-    def __init__(self, dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None):
+    def __init__(self, dim: int = 2, bounds: Tuple[float, float] = (-5.0, 10.0)):
         """
         Khởi tạo bài toán Rosenbrock.
 
         Args:
             dim: Số chiều của không gian tìm kiếm (phải >= 2)
-            bounds: Giới hạn tìm kiếm, mặc định [-5, 10]^dim
+            bounds: Giới hạn tìm kiếm dạng (low, high)
+                    Áp dụng cho tất cả các chiều.
         """
+        # Kiểm tra điều kiện tối thiểu
         if dim < 2:
             raise ValueError("Rosenbrock function yêu cầu dim >= 2")
         
-        if bounds is None:
-            bounds = [(-5.0, 10.0)] * dim
-        
         self.dim = dim
-        self.bounds = (np.array([b[0] for b in bounds]), np.array([b[1] for b in bounds]))
+
+        # Lưu bounds dưới dạng tuple (low, high)
+        # Đồng nhất với toàn bộ framework continuous problems
+        self.bounds = tuple(bounds)
+
         self.name = "Rosenbrock"
     
     def get_dimension(self):
+        """
+        Trả về số chiều của bài toán.
+        """
         return self.dim
     
     def get_bounds(self):
-        return (self.bounds[0][0], self.bounds[1][0])
+        """
+        Trả về tuple (low, high) của không gian tìm kiếm.
+        Áp dụng chung cho mọi chiều.
+        """
+        return self.bounds
     
     def clone(self):
-        return Rosenbrock(self.dim, [ (self.bounds[0][i], self.bounds[1][i]) for i in range(self.dim) ])
+        """
+        Tạo bản sao của bài toán với cùng dim và bounds.
+        """
+        return Rosenbrock(self.dim, self.bounds)
 
     def evaluate(self, x: np.ndarray) -> float:
         """
@@ -81,13 +94,20 @@ class Rosenbrock(ContinuousProblem):
             ValueError: Nếu kích thước của x không khớp với dim
         """
         x = np.asarray(x)
+
+        # Kiểm tra kích thước đầu vào
         if x.shape[0] != self.dim:
-            raise ValueError(f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})")
+            raise ValueError(
+                f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})"
+            )
         
-        # Tính sum cho i = 0 đến dim-2
+        # Tính tổng cho i = 0 đến dim-2
         result = 0.0
         for i in range(self.dim - 1):
-            result += 100.0 * (x[i+1] - x[i]**2)**2 + (1.0 - x[i])**2
+            result += (
+                100.0 * (x[i+1] - x[i]**2)**2
+                + (1.0 - x[i])**2
+            )
         
         return float(result)
 
@@ -112,17 +132,26 @@ class Rosenbrock(ContinuousProblem):
             x: Vector điểm cần tính gradient
 
         Returns:
-            Vector gradient
+            Vector gradient cùng kích thước với x
         """
         x = np.asarray(x)
+
+        # Khởi tạo vector gradient
         grad = np.zeros(self.dim)
         
-        # Gradient cho chiều đầu tiên (i=0)
-        grad[0] = -400.0 * x[0] * (x[1] - x[0]**2) - 2.0 * (1.0 - x[0])
+        # Gradient cho chiều đầu tiên (i = 0)
+        grad[0] = (
+            -400.0 * x[0] * (x[1] - x[0]**2)
+            - 2.0 * (1.0 - x[0])
+        )
         
         # Gradient cho các chiều giữa
         for i in range(1, self.dim - 1):
-            grad[i] = 200.0 * (x[i] - x[i-1]**2) - 400.0 * x[i] * (x[i+1] - x[i]**2) - 2.0 * (1.0 - x[i])
+            grad[i] = (
+                200.0 * (x[i] - x[i-1]**2)
+                - 400.0 * x[i] * (x[i+1] - x[i]**2)
+                - 2.0 * (1.0 - x[i])
+            )
         
         # Gradient cho chiều cuối cùng
         grad[-1] = 200.0 * (x[-1] - x[-2]**2)
@@ -131,13 +160,16 @@ class Rosenbrock(ContinuousProblem):
 
 
 # Hàm tiện ích để tạo instance nhanh
-def create_rosenbrock(dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None) -> Rosenbrock:
+def create_rosenbrock(
+    dim: int = 2,
+    bounds: Tuple[float, float] = (-5.0, 10.0)
+) -> Rosenbrock:
     """
     Tạo một instance của bài toán Rosenbrock.
 
     Args:
         dim: Số chiều (phải >= 2)
-        bounds: Giới hạn tìm kiếm
+        bounds: Giới hạn tìm kiếm dạng (low, high)
 
     Returns:
         Instance của Rosenbrock

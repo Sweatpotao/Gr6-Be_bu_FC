@@ -41,3 +41,7 @@ class GraphColoring(DiscreteProblem):
     
     def heuristic(self, state):
         return state.count(-1)
+
+    def clone(self):
+        """Create a fresh copy of this GraphColoring problem for independent runs."""
+        return GraphColoring(self.adj, self.num_colors)

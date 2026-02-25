@@ -14,9 +14,14 @@ problem:
     diagonal: false
 
 algorithms:
-  BFS: {}
+  BFS:
+    timeout: 30
   DFS:
     depth_limit: 50
-  UCS: {}
-  Greedy: {}
-  AStar: {}
+    timeout: 30
+  UCS:
+    timeout: 30
+  Greedy:
+    timeout: 30
+  AStar:
+    timeout: 30

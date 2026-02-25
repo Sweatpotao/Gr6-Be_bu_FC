@@ -6,7 +6,7 @@ thoát khỏi local minimum của thuật toán tối ưu.
 """
 
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import Tuple
 from problems.continuous.continuous_problem import ContinuousProblem
 
 
@@ -38,20 +38,17 @@ class Rastrigin(ContinuousProblem):
         0.0
     """
 
-    def __init__(self, dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None, A: float = 10.0):
+    def __init__(self, dim: int = 2, bounds: Tuple[float, float] = (-5.12, 5.12), A: float = 10.0):
         """
         Khởi tạo bài toán Rastrigin.
 
         Args:
             dim: Số chiều của không gian tìm kiếm
-            bounds: Giới hạn tìm kiếm, mặc định [-5.12, 5.12]^dim
+            bounds: Giới hạn tìm kiếm, mặc định [-5.12, 5.12]
             A: Hệ số điều chỉnh, mặc định 10
         """
-        if bounds is None:
-            bounds = [(-5.12, 5.12)] * dim
-        
         self.dim = dim
-        self.bounds = (np.array([b[0] for b in bounds]), np.array([b[1] for b in bounds]))
+        self.bounds = tuple(bounds)
         self.name = "Rastrigin"
         self.A = A
     
@@ -59,11 +56,10 @@ class Rastrigin(ContinuousProblem):
         return self.dim
     
     def get_bounds(self):
-        return (self.bounds[0][0], self.bounds[1][0])
+        return self.bounds
     
     def clone(self):
-        return Rastrigin(self.dim, [ (self.bounds[0][i], self.bounds[1][i]) for i in range(self.dim) ], 
-                       self.A)
+        return Rastrigin(self.dim, self.bounds, self.A)
 
     def evaluate(self, x: np.ndarray) -> float:
         """
@@ -80,7 +76,9 @@ class Rastrigin(ContinuousProblem):
         """
         x = np.asarray(x)
         if x.shape[0] != self.dim:
-            raise ValueError(f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})")
+            raise ValueError(
+                f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})"
+            )
         
         return float(self.A * self.dim + np.sum(x ** 2 - self.A * np.cos(2 * np.pi * x)))
 
@@ -112,7 +110,7 @@ class Rastrigin(ContinuousProblem):
 
 
 # Hàm tiện ích để tạo instance nhanh
-def create_rastrigin(dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None, A: float = 10.0) -> Rastrigin:
+def create_rastrigin(dim: int = 2, bounds: Tuple[float, float] = (-5.12, 5.12), A: float = 10.0) -> Rastrigin:
     """
     Tạo một instance của bài toán Rastrigin.
 
