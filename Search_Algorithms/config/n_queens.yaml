@@ -7,7 +7,8 @@ problem:
     n: 8
 
 algorithms:
-  BFS: {}
+  BFS:
+    max_nodes: 50000
   DFS:
     depth_limit: 1000
   UCS: {}

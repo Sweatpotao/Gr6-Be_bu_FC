@@ -6,6 +6,7 @@ class BFS(SearchAlgorithm):
         start = self.problem.get_start_state()
         queue = deque([(start, [start], 0)])
         visited = set([start])
+        max_nodes = self.config.get("max_nodes", float("inf"))
 
         while queue:
             state, path, cost = queue.popleft()
@@ -20,5 +21,8 @@ class BFS(SearchAlgorithm):
                 if next_state not in visited:
                     visited.add(next_state)
                     queue.append((next_state, path+[next_state], cost+step_cost))
+
+            if self.nodes_expanded >= max_nodes:
+                return self._build_result()
 
         return self._build_result()
