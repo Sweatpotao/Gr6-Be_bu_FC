@@ -70,14 +70,28 @@ class TracerWrapper:
 # 3. TRÌNH ĐIỀU KHIỂN CHÍNH
 # ==========================================
 def main():
+    # --- MENU CHỌN BÀI TOÁN ---
     print("=== CHỌN BÀI TOÁN ===")
     prob_names = list(PROBLEM_CONFIGS.keys())
     for i, name in enumerate(prob_names):
         print(f"{i+1}. {name.capitalize()}")
     
-    choice = int(input(f"Nhập số (1-{len(prob_names)}): ")) - 1
-    choice %= 5
-    selected_prob_name = prob_names[choice]
+    prob_choice = int(input(f"Nhập số (1-{len(prob_names)}): ")) - 1
+    selected_prob_name = prob_names[prob_choice % len(prob_names)]
+    
+    # --- MENU CHỌN THUẬT TOÁN ---
+    print("\n=== CHỌN THUẬT TOÁN ===")
+    for i, algo in enumerate(CONTINUOUS_ALGOS):
+        print(f"{i+1}. {algo}")
+    print(f"{len(CONTINUOUS_ALGOS) + 1}. CHẠY TẤT CẢ")
+    
+    algo_choice = int(input(f"Nhập số (1-{len(CONTINUOUS_ALGOS) + 1}): ")) - 1
+    
+    # Quyết định danh sách thuật toán sẽ chạy
+    if algo_choice == len(CONTINUOUS_ALGOS):
+        selected_algos = CONTINUOUS_ALGOS # Chạy tất cả
+    else:
+        selected_algos = [CONTINUOUS_ALGOS[algo_choice]] # Chỉ chạy 1 cái đã chọn
     
     # Khởi tạo bài toán gốc 2D
     ProblemClass = PROBLEM_REGISTRY[selected_prob_name]
@@ -85,13 +99,14 @@ def main():
     bounds = PROBLEM_CONFIGS[selected_prob_name]["bounds"]
     bound_val = bounds[0][1] # Lấy giá trị biên dương (VD: 5.12)
     
-    print(f"\n Khởi động đường đua 3D trên hàm: {selected_prob_name.upper()}")
+    print(f"\n🚀 Khởi động 3D trên hàm: {selected_prob_name.upper()}")
     
-    # Chạy lần lượt các thuật toán và thu thập đường đi
+    # Chạy các thuật toán (1 cái hoặc nhiều cái tùy lựa chọn)
     algo_paths = {}
     
-    for algo_name in CONTINUOUS_ALGOS:
+    for algo_name in selected_algos:
         if algo_name not in ALGORITHM_REGISTRY:
+            print(f"  [!] Bỏ qua {algo_name} vì không có trong REGISTRY.")
             continue
             
         print(f"  [-] Đang chạy {algo_name}...")
@@ -142,17 +157,25 @@ def main():
         if len(px) == 0: continue
         c = colors[i % len(colors)]
         
-        # Nâng đường đi lên một xíu (+ offset) để nó nổi rõ trên mặt cong
+        # Nâng đường đi lên để nổi rõ trên mặt cong
         z_offset = np.max(Z) * 0.05
         ax.plot(px, py, np.array(pz) + z_offset, color=c, linewidth=2, marker='.', markersize=6, label=algo_name)
-        # Đánh dấu điểm kết thúc của mỗi ông
-        ax.scatter(px[-1], py[-1], pz[-1] + z_offset, color=c, marker='*', s=150, edgecolors='black')
+        # Đánh dấu điểm kết thúc
+        if i == 0:
+            ax.scatter(px[-1], py[-1], pz[-1] + z_offset,
+                    color=c, marker='*', s=150,
+                    edgecolors='black',
+                    label='Final Point (*)')
+        else:
+            ax.scatter(px[-1], py[-1], pz[-1] + z_offset,
+                    color=c, marker='*', s=150,
+                    edgecolors='black')
 
     # Đánh dấu mục tiêu tối thượng (0, 0) - Thường đáy của hàm benchmark nằm ở (0,0) hoặc (1,1)
     if selected_prob_name == "rosenbrock":
-        ax.scatter(1, 1, 0, color='red', marker='X', s=200, label='Global Optimum (1,1)')
+        ax.scatter(1, 1, 0.2, color='red', marker='.', s=200, label='Global Optimum (1,1)')
     else:
-        ax.scatter(0, 0, 0, color='red', marker='X', s=200, label='Global Optimum (0,0)')
+        ax.scatter(0, 0, 0.2, color='red', marker='.', s=200, label='Global Optimum (0,0)')
 
     ax.set_title(f"Algorithm Racing on {selected_prob_name.upper()} Landscape", fontsize=16, fontweight='bold')
     ax.set_xlabel('X1')
@@ -162,7 +185,7 @@ def main():
     # Tinh chỉnh chú thích (Legend)
     ax.legend(loc='upper right', bbox_to_anchor=(1.2, 1), title="Algorithms")
     
-    print("Mở cửa sổ thành công! Hãy dùng chuột để xoay và zoom đồ thị.")
+    print("Mở cửa sổ thành công! Có thể tương tác với đồ thị.")
     plt.show()
 
 if __name__ == "__main__":
