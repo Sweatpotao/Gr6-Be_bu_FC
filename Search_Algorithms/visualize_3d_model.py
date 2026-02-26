@@ -97,9 +97,9 @@ def main():
     ProblemClass = PROBLEM_REGISTRY[selected_prob_name]
     real_problem = ProblemClass(**PROBLEM_CONFIGS[selected_prob_name])
     bounds = PROBLEM_CONFIGS[selected_prob_name]["bounds"]
-    bound_val = bounds[0][1] # Lấy giá trị biên dương (VD: 5.12)
+    bound_val = bounds[0][1] # Lấy giá trị biên dương
     
-    print(f"\n🚀 Khởi động 3D trên hàm: {selected_prob_name.upper()}")
+    print(f"\n Khởi động 3D trên hàm: {selected_prob_name.upper()}")
     
     # Chạy các thuật toán (1 cái hoặc nhiều cái tùy lựa chọn)
     algo_paths = {}
@@ -148,8 +148,8 @@ def main():
     fig = plt.figure(figsize=(12, 9))
     ax = fig.add_subplot(111, projection='3d')
     
-    # Vẽ mặt cong với độ trong suốt cao để không che lấp đường đi
-    ax.plot_surface(X, Y, Z, cmap='terrain', edgecolor='none', alpha=0.4)
+    # Vẽ mặt cong
+    ax.plot_surface(X, Y, Z, cmap='plasma', edgecolor='none', alpha=0.2)
     
     # Vẽ quỹ đạo của TỪNG thuật toán
     colors = plt.cm.tab10.colors # Bộ 10 màu phân biệt của matplotlib
@@ -167,9 +167,7 @@ def main():
                     edgecolors='black',
                     label='Final Point (*)')
         else:
-            ax.scatter(px[-1], py[-1], pz[-1] + z_offset,
-                    color=c, marker='*', s=150,
-                    edgecolors='black')
+            ax.scatter(px[-1], py[-1], pz[-1] + z_offset, color=c, marker='*', s=150, edgecolors='black')
 
     # Đánh dấu mục tiêu tối thượng (0, 0) - Thường đáy của hàm benchmark nằm ở (0,0) hoặc (1,1)
     if selected_prob_name == "rosenbrock":
