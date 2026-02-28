@@ -42,3 +42,25 @@ Success rate    : 100.00%
 Mean time (s)   : 1.701750e-02
 Mean effort     : 2001.00
 
+============================================================
+Experiment time : 2026-02-13 11:30:13.650439
+Algorithm       : HillClimbing
+Runs            : 4
+Best score      : 49.250529
+Mean score      : 75.138005
+Std score       : 22.847096
+Success rate    : 100.00%
+Mean time (s)   : 4.740227e-02
+Mean effort     : 5206.00
+
+============================================================
+Experiment time : 2026-02-13 11:30:13.650711
+Algorithm       : SimulatedAnnealing
+Runs            : 4
+Best score      : 155.689685
+Mean score      : 220.938439
+Std score       : 40.706142
+Success rate    : 100.00%
+Mean time (s)   : 1.648578e-02
+Mean effort     : 2001.00
+
