@@ -1,0 +1,66 @@
+============================================================
+Experiment time : 2026-02-28 19:32:28.273702
+Algorithm       : Greedy
+Runs            : 4
+Best score      : -525.000000
+Mean score      : -525.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 2.557700e-03
+Mean effort     : 2080.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:28.273994
+Algorithm       : UCS
+Runs            : 4
+Best score      : -475.000000
+Mean score      : -475.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 2.170001e-05
+Mean effort     : 21.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:28.276826
+Algorithm       : BFS
+Runs            : 4
+Best score      : 0.000000
+Mean score      : 0.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 8.220750e-04
+Mean effort     : 1307.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:28.277062
+Algorithm       : AStar
+Runs            : 4
+Best score      : -525.000000
+Mean score      : -525.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.402497e-05
+Mean effort     : 26.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:28.277307
+Algorithm       : ABC_Knapsack
+Runs            : 4
+Best score      : -525.000000
+Mean score      : -520.000000
+Std score       : 5.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.296793e-01
+Mean effort     : 0.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:28.277510
+Algorithm       : TLBO_Knapsack
+Runs            : 4
+Best score      : -525.000000
+Mean score      : -518.750000
+Std score       : 10.825318
+Success rate    : 100.00%
+Mean time (s)   : 3.443464e-01
+Mean effort     : 0.00
+

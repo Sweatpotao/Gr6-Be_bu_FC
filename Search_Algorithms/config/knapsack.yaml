@@ -1,0 +1,32 @@
+experiment:
+  runs: 4
+
+problem:
+  name: knapsack
+  params:
+    values: [60, 100, 120, 80, 90, 150, 200, 45, 55, 70, 85, 95, 110, 130, 160, 180, 40, 50, 65, 75]
+    weights: [10, 20, 30, 15, 25, 35, 40, 8, 12, 18, 22, 28, 32, 38, 45, 50, 7, 9, 14, 17]
+    capacity: 100
+
+algorithms:
+  # Classical algorithms
+  Greedy:
+    timeout: 60
+  UCS:
+    timeout: 60
+  BFS:
+    timeout: 60
+  AStar:
+    timeout: 60
+  # Metaheuristic algorithms
+  ABC_Knapsack:
+    timeout: 60
+    max_iters: 500
+    pop_size: 50
+    limit: 50
+    penalty_coef: 1000
+  TLBO_Knapsack:
+    timeout: 60
+    max_iters: 500
+    pop_size: 40
+    penalty_coef: 1000

@@ -383,3 +383,58 @@ Success rate    : 100.00%
 Mean time (s)   : 1.110001e-05
 Mean effort     : 8.00
 
+============================================================
+Experiment time : 2026-02-28 19:32:22.742614
+Algorithm       : BFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.857500e-05
+Mean effort     : 9.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:22.745893
+Algorithm       : DFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 2.265001e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:22.746165
+Algorithm       : UCS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 2.032499e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:22.746393
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.472500e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:22.746702
+Algorithm       : AStar
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.592500e-05
+Mean effort     : 8.00
+

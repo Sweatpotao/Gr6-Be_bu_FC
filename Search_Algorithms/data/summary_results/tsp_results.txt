@@ -1,0 +1,77 @@
+============================================================
+Experiment time : 2026-02-28 19:32:25.220201
+Algorithm       : BFS
+Runs            : 4
+Best score      : 345.000000
+Mean score      : 345.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.836900e-03
+Mean effort     : 2306.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.220531
+Algorithm       : UCS
+Runs            : 4
+Best score      : 354.000000
+Mean score      : 354.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.376368e-02
+Mean effort     : 7377.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.223421
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 296.000000
+Mean score      : 296.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.083660e-02
+Mean effort     : 3053.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.223675
+Algorithm       : AStar
+Runs            : 4
+Best score      : 342.000000
+Mean score      : 342.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.823482e-02
+Mean effort     : 5235.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.223887
+Algorithm       : GA_TSP
+Runs            : 4
+Best score      : 255.000000
+Mean score      : 255.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.636325e-01
+Mean effort     : 0.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.224095
+Algorithm       : HillClimbingTSP
+Runs            : 4
+Best score      : 329.000000
+Mean score      : 351.250000
+Std score       : 16.783548
+Success rate    : 100.00%
+Mean time (s)   : 1.042025e-03
+Mean effort     : 0.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:25.224283
+Algorithm       : SimulatedAnnealingTSP
+Runs            : 4
+Best score      : 255.000000
+Mean score      : 256.500000
+Std score       : 2.598076
+Success rate    : 100.00%
+Mean time (s)   : 3.522208e-02
+Mean effort     : 0.00
+

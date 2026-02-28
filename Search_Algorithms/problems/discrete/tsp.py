@@ -69,6 +69,10 @@ class TSP(DiscreteProblem):
 
         return min_from_curr + min_to_start
 
+    def get_dimension(self):
+        """Return the number of cities (for compatibility with Optimizer interface)."""
+        return self.n
+
     def clone(self):
         """Create a fresh copy of this TSP problem for independent runs."""
         return TSP(self.matrix, self.start_city)
