@@ -1,46 +1,112 @@
 ============================================================
-Experiment time : 2026-01-30 14:32:02.900015
+Experiment time : 2026-02-25 13:15:57.195693
 Algorithm       : HillClimbing
 Runs            : 4
-Best score      : 19.629968
-Mean score      : 20.209066
-Std score       : 0.335314
+Best score      : 20.310181
+Mean score      : 20.737622
+Std score       : 0.328689
 Success rate    : 100.00%
-Mean time (s)   : 6.799417e-02
-Mean effort     : 41.00
+Mean time (s)   : 7.805250e-04
+Mean effort     : 56.00
 
 ============================================================
-Experiment time : 2026-01-30 14:32:02.900604
+Experiment time : 2026-02-25 13:15:57.196085
 Algorithm       : SimulatedAnnealing
 Runs            : 4
-Best score      : 17.931321
-Mean score      : 19.112978
-Std score       : 0.690062
+Best score      : 18.988689
+Mean score      : 19.532825
+Std score       : 0.321168
 Success rate    : 100.00%
-Mean time (s)   : 2.281718e-02
+Mean time (s)   : 2.222040e-02
 Mean effort     : 2001.00
 
 ============================================================
-Experiment time : 2026-01-30 14:32:33.207042
-Algorithm       : HillClimbing
+Experiment time : 2026-02-25 13:15:57.196301
+Algorithm       : ABC
 Runs            : 4
-Best score      : 20.426362
-Mean score      : 20.504847
-Std score       : 0.065371
+Best score      : 0.001153
+Mean score      : 0.001967
+Std score       : 0.000767
 Success rate    : 100.00%
-Mean time (s)   : 3.202825e-03
-Mean effort     : 71.00
+Mean time (s)   : 1.578116e-01
+Mean effort     : 10000.00
 
 ============================================================
-Experiment time : 2026-01-30 14:32:33.207373
-Algorithm       : SimulatedAnnealing
+Experiment time : 2026-02-25 13:15:57.196649
+Algorithm       : ACO
 Runs            : 4
-Best score      : 19.268682
-Mean score      : 19.653004
-Std score       : 0.246551
+Best score      : 0.000000
+Mean score      : 0.503329
+Std score       : 0.871791
 Success rate    : 100.00%
-Mean time (s)   : 1.891277e-02
-Mean effort     : 2001.00
+Mean time (s)   : 2.190214e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.196827
+Algorithm       : CuckooSearch
+Runs            : 4
+Best score      : 3.994579
+Mean score      : 4.786252
+Std score       : 0.647333
+Success rate    : 100.00%
+Mean time (s)   : 8.942815e-02
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.196955
+Algorithm       : FireflyAlgorithm
+Runs            : 4
+Best score      : 7.418789
+Mean score      : 8.230390
+Std score       : 0.772530
+Success rate    : 100.00%
+Mean time (s)   : 1.733674e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.197085
+Algorithm       : PSO
+Runs            : 4
+Best score      : 0.000000
+Mean score      : 0.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 7.974825e-02
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.197270
+Algorithm       : GA
+Runs            : 4
+Best score      : 0.047861
+Mean score      : 0.116784
+Std score       : 0.052388
+Success rate    : 100.00%
+Mean time (s)   : 2.305283e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.197405
+Algorithm       : DE
+Runs            : 4
+Best score      : 3.575755
+Mean score      : 3.932210
+Std score       : 0.299226
+Success rate    : 100.00%
+Mean time (s)   : 2.701956e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-02-25 13:15:57.197534
+Algorithm       : TLBO
+Runs            : 4
+Best score      : 0.000000
+Mean score      : 0.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.595252e-01
+Mean effort     : 10000.00
 
 ============================================================
 Experiment time : 2026-02-13 11:30:13.275500

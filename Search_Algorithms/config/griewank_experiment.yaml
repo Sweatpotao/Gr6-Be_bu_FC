@@ -5,9 +5,10 @@ problem:
   name: griewank
   params:
     dim: 10
-    bounds: [[-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600], [-600, 600]]
+    bounds: [-600, 600]
 
 algorithms:
+  # --- LOCAL SEARCH ---
   HillClimbing:
     step_size: 0.5
     n_neighbors: 20
@@ -20,3 +21,53 @@ algorithms:
     max_iters: 2000
     max_evaluations: 10000
     timeout: 60
+
+  # --- SWARM ---
+  ABC:
+    pop_size: 30
+    limit: 100
+    max_iters: 1000
+    max_evaluations: 10000
+  ACO:
+    archive_size: 30
+    sample_size: 20
+    max_iters: 1000
+    max_evaluations: 10000
+  CuckooSearch:
+    n_nests: 25
+    pa: 0.25
+    max_iters: 1000
+    max_evaluations: 10000
+  FireflyAlgorithm:
+    pop_size: 30
+    alpha: 0.2
+    max_iters: 1000
+    max_evaluations: 10000
+  PSO:
+    n_particles: 30
+    w: 0.7
+    c1: 1.5
+    c2: 1.5
+    max_iters: 1000
+    max_evaluations: 10000
+
+  # --- EVOLUTION ---
+  GA:
+    pop_size: 50
+    mutation_rate: 0.1
+    crossover_rate: 0.9
+    elite_size: 2
+    max_iters: 1000
+    max_evaluations: 10000
+  DE:
+    pop_size: 50
+    F: 0.8
+    Cr: 0.9
+    max_iters: 1000
+    max_evaluations: 10000
+
+  # --- HUMAN-BASED ---
+  TLBO:
+    pop_size: 30
+    max_iters: 1000
+    max_evaluations: 10000

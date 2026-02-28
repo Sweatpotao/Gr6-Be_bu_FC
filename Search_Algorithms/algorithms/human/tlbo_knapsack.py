@@ -11,7 +11,7 @@ class TLBO_Knapsack(Optimizer):
 
         n = self.problem.n
 
-        # 1️⃣ Initialize binary population
+        # Initialize binary population
         population = np.random.randint(0, 2, (pop_size, n))
         fitness = np.array([
             self._fitness(ind, penalty_coef)
@@ -23,7 +23,7 @@ class TLBO_Knapsack(Optimizer):
         self.best_fitness = fitness[best_idx]
         self.history.append(self.best_fitness)
 
-        # 2️⃣ Main Loop
+        # Main Loop
         for _ in range(max_iters):
 
             # =========================

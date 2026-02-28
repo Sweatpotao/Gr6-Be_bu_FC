@@ -2,13 +2,10 @@ experiment:
   runs: 4
 
 problem:
-  name: ackley
+  name: sphere
   params:
     dim: 10
-    bounds: [-32.768, 32.768]
-    a: 20.0
-    b: 0.2
-    c: 6.283185307
+    bounds: [-5.12, 5.12]
 
 algorithms:
   # --- LOCAL SEARCH ---

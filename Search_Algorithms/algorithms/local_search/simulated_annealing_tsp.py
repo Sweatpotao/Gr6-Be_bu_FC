@@ -17,7 +17,7 @@ class SimulatedAnnealingTSP(Optimizer):
         n = self.problem.get_dimension()
         dist_matrix = self.problem.matrix
 
-        # 1️⃣ Initial solution
+        # Initial solution
         current = np.random.permutation(n)
         current_f = self._tour_cost(current, dist_matrix)
 
@@ -25,7 +25,7 @@ class SimulatedAnnealingTSP(Optimizer):
         self.best_fitness = current_f
         self.history.append(current_f)
 
-        # 2️⃣ Main loop
+        # Main loop
         for _ in range(max_iters):
 
             if self._check_timeout():

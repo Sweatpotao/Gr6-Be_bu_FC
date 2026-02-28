@@ -6,7 +6,7 @@ thường dùng để test khả năng tìm kiếm toàn cục của thuật to�
 """
 
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import Tuple
 from problems.continuous.continuous_problem import ContinuousProblem
 
 
@@ -42,23 +42,20 @@ class Ackley(ContinuousProblem):
         0.0
     """
 
-    def __init__(self, dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None, 
+    def __init__(self, dim: int = 2, bounds: Tuple[float, float] = (-32.768, 32.768),
                  a: float = 20.0, b: float = 0.2, c: float = 2.0 * np.pi):
         """
         Khởi tạo bài toán Ackley.
 
         Args:
             dim: Số chiều của không gian tìm kiếm
-            bounds: Giới hạn tìm kiếm, mặc định [-32.768, 32.768]^dim
+            bounds: Giới hạn tìm kiếm, mặc định [-32.768, 32.768]
             a: Tham số điều chỉnh độ sâu (mặc định 20)
             b: Tham số điều chỉnh độ rộng (mặc định 0.2)
             c: Tham số tần số (mặc định 2π)
         """
-        if bounds is None:
-            bounds = [(-32.768, 32.768)] * dim
-        
         self.dim = dim
-        self.bounds = (np.array([b[0] for b in bounds]), np.array([b[1] for b in bounds]))
+        self.bounds = tuple(bounds)
         self.name = "Ackley"
         self.a = a
         self.b = b
@@ -68,11 +65,10 @@ class Ackley(ContinuousProblem):
         return self.dim
     
     def get_bounds(self):
-        return (self.bounds[0][0], self.bounds[1][0])
+        return self.bounds
     
     def clone(self):
-        return Ackley(self.dim, [ (self.bounds[0][i], self.bounds[1][i]) for i in range(self.dim) ], 
-                     self.a, self.b, self.c)
+        return Ackley(self.dim, self.bounds, self.a, self.b, self.c)
 
     def evaluate(self, x: np.ndarray) -> float:
         """
@@ -89,7 +85,9 @@ class Ackley(ContinuousProblem):
         """
         x = np.asarray(x)
         if x.shape[0] != self.dim:
-            raise ValueError(f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})")
+            raise ValueError(
+                f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})"
+            )
         
         sum_sq = np.sum(x ** 2)
         sum_cos = np.sum(np.cos(self.c * x))
@@ -131,7 +129,6 @@ class Ackley(ContinuousProblem):
         exp_term1 = np.exp(-self.b * sqrt_term)
         exp_term2 = np.exp(sum_cos / self.dim)
         
-        # Gradient từng phần
         if sqrt_term > 1e-10:
             grad_sq = (self.a * self.b * exp_term1) / (self.dim * sqrt_term)
         else:
@@ -143,7 +140,7 @@ class Ackley(ContinuousProblem):
 
 
 # Hàm tiện ích để tạo instance nhanh
-def create_ackley(dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None,
+def create_ackley(dim: int = 2, bounds: Tuple[float, float] = (-32.768, 32.768),
                   a: float = 20.0, b: float = 0.2, c: float = 2.0 * np.pi) -> Ackley:
     """
     Tạo một instance của bài toán Ackley.

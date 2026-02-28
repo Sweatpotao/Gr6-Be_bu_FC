@@ -5,14 +5,16 @@ problem:
   name: rastrigin
   params:
     dim: 10
-    bounds: [[-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12], [-5.12, 5.12]]
+    bounds: [-5.12, 5.12]
 
 algorithms:
+  # --- LOCAL SEARCH ---
   HillClimbing:
     step_size: 0.5
     n_neighbors: 20
     max_iters: 1000
     max_evaluations: 10000
+    timeout: 60
     timeout: 60
   SimulatedAnnealing:
     initial_temp: 100

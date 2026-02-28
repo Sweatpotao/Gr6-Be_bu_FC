@@ -45,3 +45,4 @@ class SimulatedAnnealing(Optimizer):
         self.best_fitness = current_f
         self.runtime = time.time() - self.start_time
         return self._build_result()
+SimulatedAnnealing

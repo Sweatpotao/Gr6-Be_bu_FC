@@ -6,7 +6,7 @@ thường dùng để test khả năng tìm kiếm toàn cục.
 """
 
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import Tuple
 from problems.continuous.continuous_problem import ContinuousProblem
 
 
@@ -39,29 +39,26 @@ class Griewank(ContinuousProblem):
         0.0
     """
 
-    def __init__(self, dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None):
+    def __init__(self, dim: int = 2, bounds: Tuple[float, float] = (-600.0, 600.0)):
         """
         Khởi tạo bài toán Griewank.
 
         Args:
             dim: Số chiều của không gian tìm kiếm
-            bounds: Giới hạn tìm kiếm, mặc định [-600, 600]^dim
+            bounds: Giới hạn tìm kiếm, mặc định [-600, 600]
         """
-        if bounds is None:
-            bounds = [(-600.0, 600.0)] * dim
-        
         self.dim = dim
-        self.bounds = (np.array([b[0] for b in bounds]), np.array([b[1] for b in bounds]))
+        self.bounds = tuple(bounds)
         self.name = "Griewank"
     
     def get_dimension(self):
         return self.dim
     
     def get_bounds(self):
-        return (self.bounds[0][0], self.bounds[1][0])
+        return self.bounds
     
     def clone(self):
-        return Griewank(self.dim, [ (self.bounds[0][i], self.bounds[1][i]) for i in range(self.dim) ])
+        return Griewank(self.dim, self.bounds)
 
     def evaluate(self, x: np.ndarray) -> float:
         """
@@ -78,7 +75,9 @@ class Griewank(ContinuousProblem):
         """
         x = np.asarray(x)
         if x.shape[0] != self.dim:
-            raise ValueError(f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})")
+            raise ValueError(
+                f"Kích thước của x ({x.shape[0]}) không khớp với dim ({self.dim})"
+            )
         
         sum_sq = np.sum(x ** 2)
         prod_cos = np.prod(np.cos(x / np.sqrt(np.arange(1, self.dim + 1))))
@@ -113,7 +112,6 @@ class Griewank(ContinuousProblem):
         i = np.arange(1, self.dim + 1)
         sqrt_i = np.sqrt(i)
         
-        sum_sq = np.sum(x ** 2)
         cos_term = np.cos(x / sqrt_i)
         sin_term = np.sin(x / sqrt_i)
         
@@ -121,19 +119,17 @@ class Griewank(ContinuousProblem):
         
         grad = np.zeros(self.dim)
         for j in range(self.dim):
-            # Partial derivative of product term
             if cos_term[j] != 0:
                 prod_except_j = prod_cos / cos_term[j]
                 grad[j] = x[j] / 2000.0 + prod_except_j * sin_term[j] / sqrt_i[j]
             else:
-                # Handle edge case where cos is 0
                 grad[j] = x[j] / 2000.0
         
         return grad
 
 
 # Hàm tiện ích để tạo instance nhanh
-def create_griewank(dim: int = 2, bounds: Optional[List[Tuple[float, float]]] = None) -> Griewank:
+def create_griewank(dim: int = 2, bounds: Tuple[float, float] = (-600.0, 600.0)) -> Griewank:
     """
     Tạo một instance của bài toán Griewank.
 
