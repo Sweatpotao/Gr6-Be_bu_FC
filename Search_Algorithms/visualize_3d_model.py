@@ -175,7 +175,7 @@ def main():
     else:
         ax.scatter(0, 0, 0.2, color='red', marker='.', s=200, label='Global Optimum (0,0)')
 
-    ax.set_title(f"Algorithm Racing on {selected_prob_name.upper()} Landscape", fontsize=16, fontweight='bold')
+    ax.set_title(f"Algorithm on {selected_prob_name.upper()} Landscape", fontsize=16, fontweight='bold')
     ax.set_xlabel('X1')
     ax.set_ylabel('X2')
     ax.set_zlabel('Fitness')
