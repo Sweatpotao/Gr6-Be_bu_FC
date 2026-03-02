@@ -329,57 +329,94 @@ Mean time (s)   : 1.867000e-04
 Mean effort     : 6.00
 
 ============================================================
+<<<<<<< HEAD
 Experiment time : 2026-03-02 00:06:16.798137
+=======
+Experiment time : 2026-02-28 19:32:23.112960
+>>>>>>> origin/24127416
 Algorithm       : BFS
 Runs            : 4
 Best score      : 4.000000
 Mean score      : 4.000000
 Std score       : 0.000000
 Success rate    : 100.00%
+<<<<<<< HEAD
 Mean time (s)   : 7.649425e-03
 Mean effort     : 957.00
 
 ============================================================
 Experiment time : 2026-03-02 00:06:16.799310
+=======
+Mean time (s)   : 3.744200e-03
+Mean effort     : 957.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:23.116301
+>>>>>>> origin/24127416
 Algorithm       : DFS
 Runs            : 4
 Best score      : 395.000000
 Mean score      : 395.000000
 Std score       : 0.000000
 Success rate    : 100.00%
+<<<<<<< HEAD
 Mean time (s)   : 7.339725e-03
 Mean effort     : 649.00
 
 ============================================================
 Experiment time : 2026-03-02 00:06:16.799880
+=======
+Mean time (s)   : 3.364625e-03
+Mean effort     : 649.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:23.116567
+>>>>>>> origin/24127416
 Algorithm       : UCS
 Runs            : 4
 Best score      : 10.000000
 Mean score      : 10.000000
 Std score       : 0.000000
 Success rate    : 100.00%
+<<<<<<< HEAD
 Mean time (s)   : 2.221668e-02
 Mean effort     : 3834.00
 
 ============================================================
 Experiment time : 2026-03-02 00:06:16.800408
+=======
+Mean time (s)   : 8.658200e-03
+Mean effort     : 3834.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:23.116814
+>>>>>>> origin/24127416
 Algorithm       : Greedy
 Runs            : 4
 Best score      : 4.000000
 Mean score      : 4.000000
 Std score       : 0.000000
 Success rate    : 100.00%
+<<<<<<< HEAD
 Mean time (s)   : 3.522500e-04
 Mean effort     : 6.00
 
 ============================================================
 Experiment time : 2026-03-02 00:06:16.800974
+=======
+Mean time (s)   : 1.659000e-04
+Mean effort     : 6.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:23.117032
+>>>>>>> origin/24127416
 Algorithm       : AStar
 Runs            : 4
 Best score      : 4.000000
 Mean score      : 4.000000
 Std score       : 0.000000
 Success rate    : 100.00%
+<<<<<<< HEAD
 Mean time (s)   : 3.624500e-04
 Mean effort     : 6.00
 
@@ -491,5 +528,63 @@ Mean score      : 4.000000
 Std score       : 0.000000
 Success rate    : 100.00%
 Mean time (s)   : 3.793000e-04
+=======
+Mean time (s)   : 1.735500e-04
+>>>>>>> origin/24127416
+Mean effort     : 6.00
+
+============================================================
+Experiment time : 2026-03-02 21:58:04.252873
+Algorithm       : BFS
+Runs            : 4
+Best score      : 4.000000
+Mean score      : 4.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.171112e-02
+Mean effort     : 957.00
+
+============================================================
+Experiment time : 2026-03-02 21:58:04.255298
+Algorithm       : DFS
+Runs            : 4
+Best score      : 395.000000
+Mean score      : 395.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.414685e-02
+Mean effort     : 649.00
+
+============================================================
+Experiment time : 2026-03-02 21:58:04.256848
+Algorithm       : UCS
+Runs            : 4
+Best score      : 10.000000
+Mean score      : 10.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.612270e-02
+Mean effort     : 3834.00
+
+============================================================
+Experiment time : 2026-03-02 21:58:04.258465
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 4.000000
+Mean score      : 4.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.004375e-03
+Mean effort     : 6.00
+
+============================================================
+Experiment time : 2026-03-02 21:58:04.260414
+Algorithm       : AStar
+Runs            : 4
+Best score      : 4.000000
+Mean score      : 4.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 8.993250e-04
 Mean effort     : 6.00
 

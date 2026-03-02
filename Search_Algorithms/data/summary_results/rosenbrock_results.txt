@@ -131,6 +131,28 @@ Mean time (s)   : 1.853105e-02
 Mean effort     : 2001.00
 
 ============================================================
+<<<<<<< HEAD
+Experiment time : 2026-02-13 11:30:13.392822
+Algorithm       : HillClimbing
+Runs            : 4
+Best score      : 35.960257
+Mean score      : 138.488867
+Std score       : 76.572071
+Success rate    : 100.00%
+Mean time (s)   : 6.527500e-04
+Mean effort     : 91.00
+
+============================================================
+Experiment time : 2026-02-13 11:30:13.393134
+Algorithm       : SimulatedAnnealing
+Runs            : 4
+Best score      : 9.322375
+Mean score      : 10.171322
+Std score       : 0.576689
+Success rate    : 100.00%
+Mean time (s)   : 1.363630e-02
+Mean effort     : 2001.00
+=======
 Experiment time : 2026-02-25 13:16:07.715835
 Algorithm       : ABC
 Runs            : 4
@@ -217,6 +239,29 @@ Std score       : 0.676767
 Success rate    : 100.00%
 Mean time (s)   : 1.319942e-01
 Mean effort     : 10000.00
+>>>>>>> main
+
+============================================================
+Experiment time : 2026-02-28 19:32:17.653579
+Algorithm       : HillClimbing
+Runs            : 4
+Best score      : 36.859136
+Mean score      : 95.546398
+Std score       : 39.887211
+Success rate    : 100.00%
+Mean time (s)   : 7.995750e-04
+Mean effort     : 106.00
+
+============================================================
+Experiment time : 2026-02-28 19:32:17.654314
+Algorithm       : SimulatedAnnealing
+Runs            : 4
+Best score      : 5.870489
+Mean score      : 9.171646
+Std score       : 1.911036
+Success rate    : 100.00%
+Mean time (s)   : 1.431000e-02
+Mean effort     : 2001.00
 
 ============================================================
 Experiment time : 2026-03-02 00:06:02.534345
@@ -546,5 +591,115 @@ Mean score      : 4.884145
 Std score       : 0.611157
 Success rate    : 100.00%
 Mean time (s)   : 3.004564e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.413759
+Algorithm       : HillClimbing
+Runs            : 20
+Best score      : 44.481720
+Mean score      : 141.000126
+Std score       : 241.544561
+Success rate    : 100.00%
+Mean time (s)   : 4.553885e-03
+Mean effort     : 105.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.416256
+Algorithm       : SimulatedAnnealing
+Runs            : 20
+Best score      : 5.406338
+Mean score      : 9.326828
+Std score       : 1.378805
+Success rate    : 100.00%
+Mean time (s)   : 7.386604e-02
+Mean effort     : 2001.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.417770
+Algorithm       : ABC
+Runs            : 20
+Best score      : 5.097226
+Mean score      : 6.508868
+Std score       : 0.611089
+Success rate    : 100.00%
+Mean time (s)   : 6.178876e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.419598
+Algorithm       : ACO
+Runs            : 20
+Best score      : 4.034535
+Mean score      : 5.110960
+Std score       : 0.546572
+Success rate    : 100.00%
+Mean time (s)   : 8.161148e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.421144
+Algorithm       : CuckooSearch
+Runs            : 20
+Best score      : 4.725405
+Mean score      : 8.551445
+Std score       : 1.320715
+Success rate    : 100.00%
+Mean time (s)   : 2.434943e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.422574
+Algorithm       : FireflyAlgorithm
+Runs            : 20
+Best score      : 8.358758
+Mean score      : 14.543359
+Std score       : 2.185397
+Success rate    : 100.00%
+Mean time (s)   : 4.946988e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.424218
+Algorithm       : PSO
+Runs            : 20
+Best score      : 2.030830
+Mean score      : 4.146117
+Std score       : 1.757955
+Success rate    : 100.00%
+Mean time (s)   : 2.368646e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.425705
+Algorithm       : GA
+Runs            : 20
+Best score      : 1.039397
+Mean score      : 7.172858
+Std score       : 1.455330
+Success rate    : 100.00%
+Mean time (s)   : 8.169446e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.428103
+Algorithm       : DE
+Runs            : 20
+Best score      : 10.307748
+Mean score      : 13.564856
+Std score       : 2.135338
+Success rate    : 100.00%
+Mean time (s)   : 7.960712e-01
+Mean effort     : 10000.00
+
+============================================================
+Experiment time : 2026-03-02 21:56:00.429631
+Algorithm       : TLBO
+Runs            : 20
+Best score      : 3.119927
+Mean score      : 4.697774
+Std score       : 0.893136
+Success rate    : 100.00%
+Mean time (s)   : 3.958855e-01
 Mean effort     : 10000.00
 

@@ -1,18 +1,25 @@
 """
-Visualization script for discrete algorithm comparison results.
-Creates spider/radar charts for comparing algorithm performance.
+Visualization module for discrete algorithm comparison results.
+Creates spider/radar charts for comparing classical search algorithms (BFS, DFS, UCS, Greedy, A*).
 """
 
 import json
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
+
+from .base import (
+    DISCRETE_COLOR_MAP, 
+    calculate_angles, 
+    ensure_output_dir,
+    save_or_show
+)
 
 
 def create_spider_chart(algorithms_data: Dict[str, List[float]], 
                         title: str = "Algorithm Comparison",
-                        save_path: str = None):
+                        save_path: Optional[str] = None):
     """
     Create a spider/radar chart for algorithm comparison.
     
@@ -25,25 +32,15 @@ def create_spider_chart(algorithms_data: Dict[str, List[float]],
     N = len(categories)
     
     # Compute angle for each axis
-    angles = [n / float(N) * 2 * np.pi for n in range(N)]
-    angles += angles[:1]  # Complete the circle
+    angles = calculate_angles(N)
     
     # Create figure
     fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection='polar'))
     
-    # Color scheme for algorithm categories
-    color_map = {
-        'BFS': '#1f77b4',      # Blue (Classical)
-        'DFS': '#4a90d9',      # Light Blue (Classical)
-        'UCS': '#2ca02c',      # Green (Classical)
-        'Greedy': '#ff7f0e',   # Orange (Heuristic)
-        'A*': '#d62728',       # Red (Heuristic)
-    }
-    
     # Plot each algorithm
     for idx, (name, values) in enumerate(algorithms_data.items()):
         values_closed = list(values) + values[:1]  # Complete the circle (create copy)
-        color = color_map.get(name, plt.cm.Set2(idx / len(algorithms_data)))
+        color = DISCRETE_COLOR_MAP.get(name, plt.cm.Set2(idx / len(algorithms_data)))
         
         ax.plot(angles, values_closed, 'o-', linewidth=2.5, label=name, color=color, markersize=8)
         ax.fill(angles, values_closed, alpha=0.15, color=color)
@@ -59,14 +56,7 @@ def create_spider_chart(algorithms_data: Dict[str, List[float]],
     ax.grid(True, linestyle='--', alpha=0.7)
     
     plt.tight_layout()
-    
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"Chart saved to: {save_path}")
-    else:
-        plt.show()
-    
-    plt.close()
+    save_or_show(fig, save_path)
 
 
 def create_comparison_grid(spider_data: Dict, output_dir: str = "comparison_charts"):
@@ -77,8 +67,7 @@ def create_comparison_grid(spider_data: Dict, output_dir: str = "comparison_char
         spider_data: Dict mapping problem names to algorithm performance data
         output_dir: Directory to save charts
     """
-    output_path = Path(output_dir)
-    output_path.mkdir(exist_ok=True)
+    output_path = ensure_output_dir(output_dir)
     
     problems = list(spider_data.keys())
     n_problems = len(problems)
@@ -92,16 +81,7 @@ def create_comparison_grid(spider_data: Dict, output_dir: str = "comparison_char
     
     categories = ['Solution Quality', 'Speed', 'Efficiency', 'Reliability', 'Convergence']
     N = len(categories)
-    angles = [n / float(N) * 2 * np.pi for n in range(N)]
-    angles += angles[:1]
-    
-    color_map = {
-        'BFS': '#1f77b4',
-        'DFS': '#4a90d9',
-        'UCS': '#2ca02c',
-        'Greedy': '#ff7f0e',
-        'A*': '#d62728',
-    }
+    angles = calculate_angles(N)
     
     for idx, problem_name in enumerate(problems):
         ax = fig.add_subplot(n_rows, n_cols, idx + 1, projection='polar')
@@ -111,7 +91,7 @@ def create_comparison_grid(spider_data: Dict, output_dir: str = "comparison_char
         for algo_idx, (algo_name, values) in enumerate(algorithms_data.items()):
             values_list = list(values)
             values_closed = values_list + values_list[:1]  # Complete the circle properly
-            color = color_map.get(algo_name, plt.cm.Set2(algo_idx / len(algorithms_data)))
+            color = DISCRETE_COLOR_MAP.get(algo_name, plt.cm.Set2(algo_idx / len(algorithms_data)))
             ax.plot(angles, values_closed, 'o-', linewidth=2, label=algo_name, color=color)
             ax.fill(angles, values_closed, alpha=0.15, color=color)
         
@@ -176,7 +156,9 @@ def create_summary_table(spider_data: Dict, output_file: str = "discrete_summary
     
     summary_text = "\n".join(summary)
     
-    with open(output_file, 'w', encoding='utf-8') as f:
+    # Handle both string path and Path object
+    output_path = Path(output_file)
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(summary_text)
     
     print(summary_text)
@@ -193,8 +175,15 @@ def main():
     else:
         data_file = "discrete_spider_data.json"
     
-    # Load data
+    # Load data - handle both absolute and relative paths
     data_path = Path(data_file)
+    if not data_path.is_absolute():
+        # Try relative to current directory first
+        if not data_path.exists():
+            # Try relative to script directory
+            script_dir = Path(__file__).parent.parent
+            data_path = script_dir / data_file
+    
     if not data_path.exists():
         print(f"Error: Data file '{data_file}' not found.")
         print("Please run 'run_discrete_comparison.py' first to generate comparison data.")
@@ -214,13 +203,13 @@ def main():
         safe_name = problem_name.replace(" ", "_").lower()
         save_path = output_dir / f"{safe_name}_spider.png"
         create_spider_chart(algorithms_data, title=f"{problem_name} - Algorithm Comparison", 
-                          save_path=save_path)
+                          save_path=str(save_path))
     
     # Create comparison grid
-    create_comparison_grid(spider_data, output_dir)
+    create_comparison_grid(spider_data, str(output_dir))
     
     # Create summary table
-    create_summary_table(spider_data, output_dir / "discrete_summary.txt")
+    create_summary_table(spider_data, str(output_dir / "discrete_summary.txt"))
     
     print("\nAll visualizations created successfully!")
     print(f"Charts saved in: {output_dir.absolute()}")

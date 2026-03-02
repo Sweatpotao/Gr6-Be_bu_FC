@@ -11,11 +11,20 @@ Examples:
     # Test with specific algorithms (auto-detect YAML or use default params)
     python test_single.py --problem n_queens --algorithms BFS,AStar
 
-    # Test TSP with 10 runs
+    # Test TSP with metaheuristic algorithms
+    python test_single.py --problem tsp --algorithms GA_TSP,HillClimbingTSP,SimulatedAnnealingTSP
+
+    # Test Knapsack with metaheuristic algorithms
+    python test_single.py --problem knapsack --algorithms ABC_Knapsack,TLBO_Knapsack
+
+    # Test with 10 runs
     python test_single.py --problem tsp --runs 10
 
     # Test Knapsack and save results
     python test_single.py --problem knapsack --algorithms Greedy,UCS --output results.txt
+
+Note: Problem-specific algorithms (e.g., GA_TSP for TSP, ABC_Knapsack for Knapsack)
+    will show a warning if selected for incompatible problems.
 """
 
 import argparse
@@ -30,6 +39,48 @@ sys.path.insert(0, str(Path(__file__).parent))
 import yaml
 from experiment.run_experiment import run_experiment_from_dict
 from experiment.registry import PROBLEM_REGISTRY, ALGORITHM_REGISTRY
+
+# Define problem-specific algorithm compatibility
+# Algorithms that only work with specific problems
+PROBLEM_SPECIFIC_ALGORITHMS = {
+    'tsp': ['GA_TSP', 'HillClimbingTSP', 'SimulatedAnnealingTSP'],
+    'knapsack': ['ABC_Knapsack', 'TLBO_Knapsack'],
+}
+
+# Reverse mapping: algorithm -> compatible problems
+ALGORITHM_COMPATIBILITY = {}
+for problem, algos in PROBLEM_SPECIFIC_ALGORITHMS.items():
+    for algo in algos:
+        ALGORITHM_COMPATIBILITY[algo] = [problem]
+
+def check_algorithm_compatibility(algorithms, problem_name):
+    """
+    Check if selected algorithms are compatible with the problem.
+    
+    Returns:
+        tuple: (valid_algorithms, warnings)
+    """
+    valid_algos = []
+    warnings = []
+    
+    for algo in algorithms:
+        # Check if algorithm is problem-specific
+        compatible_problems = ALGORITHM_COMPATIBILITY.get(algo)
+        
+        if compatible_problems is not None:
+            # This is a problem-specific algorithm
+            if problem_name not in compatible_problems:
+                warnings.append(
+                    f"WARNING: '{algo}' is designed for {compatible_problems[0]} problems, "
+                    f"not for '{problem_name}'. It may not work correctly or produce invalid results."
+                )
+            else:
+                valid_algos.append(algo)
+        else:
+            # General algorithm, should work with any problem
+            valid_algos.append(algo)
+    
+    return valid_algos, warnings
 
 
 def find_config_file(problem_name):
@@ -313,7 +364,7 @@ def save_spider_json(results, problem_name, output_path=None):
         json.dump(spider_data, f, indent=2)
     
     print(f"Spider chart data saved to: {output_path}")
-    print(f"  Use: python visualize_discrete_comparison.py {output_path}")
+    print(f"  Use: python -m visualization.discrete_comparison {output_path}")
     return output_path
 
 
@@ -416,6 +467,23 @@ Examples:
             for name in sorted(ALGORITHM_REGISTRY.keys()):
                 print(f"  - {name}")
             sys.exit(1)
+        
+        # Check algorithm-problem compatibility
+        valid_algos, warnings = check_algorithm_compatibility(selected_algos, problem_name)
+        
+        # Print warnings for incompatible algorithms
+        if warnings:
+            print("\n" + "!" * 70)
+            for warning in warnings:
+                print(f"  {warning}")
+            print("!" * 70 + "\n")
+            
+            # Ask user if they want to continue (only for interactive use)
+            # In non-interactive mode, we'll continue but skip incompatible algorithms
+            
+        # Filter to only valid algorithms for this problem
+        selected_algos = valid_algos if valid_algos else None
+        
     else:
         selected_algos = None  # Will be determined from YAML or use all
     
@@ -454,7 +522,7 @@ Examples:
         print("TEST COMPLETED SUCCESSFULLY")
         print("=" * 70)
         print(f"\nTo visualize results, run:")
-        print(f"  python visualize_discrete_comparison.py {spider_json_path}")
+        print(f"  python -m visualization.discrete_comparison {spider_json_path}")
         
     except Exception as e:
         print(f"\nError during test: {e}")

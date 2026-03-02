@@ -5,8 +5,69 @@ Each problem runs 4 times with available algorithms.
 
 from experiment.run_experiment import run_experiment
 from experiment.logger import save_summary_txt
+from visualization.continuous_comparison import plot_radar_chart
+from visualization.discrete_comparison import create_spider_chart
 import os
 from visualization.plot_comparison import plot_continuous_radar
+
+# Discrete problems list
+DISCRETE_PROBLEMS = {'grid_pathfinding', 'n_queens', 'tsp', 'knapsack', 'graph_coloring'}
+
+def convert_results_to_spider_data(results):
+    """
+    Convert experiment results to spider chart format for discrete problems.
+    
+    Returns dict: {algorithm_name: [quality, speed, efficiency, reliability, convergence]}
+    """
+    spider_data = {}
+    
+    if not results:
+        return spider_data
+    
+    # Find max values for normalization
+    max_time = max(r['mean_time'] for r in results.values() if r['mean_time'] > 0) or 1.0
+    max_effort = max(r['mean_effort'] for r in results.values() if r['mean_effort'] > 0) or 1.0
+    
+    # For solution quality, we need to normalize scores
+    scores = [r['best_score'] for r in results.values() if r['best_score'] is not None]
+    if scores:
+        min_score, max_score = min(scores), max(scores)
+        score_range = max_score - min_score if max_score > min_score else 1
+    else:
+        min_score, max_score, score_range = 0, 1, 1
+    
+    for algo_name, summary in results.items():
+        # Solution Quality: normalized score (higher is better)
+        if summary['best_score'] is not None:
+            quality = (summary['best_score'] - min_score) / score_range
+        else:
+            quality = summary['success_rate']
+        
+        # Speed: inverse of time (faster is better)
+        speed = 1 - (summary['mean_time'] / max_time) if max_time > 0 else 0
+        
+        # Efficiency: inverse of effort (fewer evaluations is better)
+        efficiency = 1 - (summary['mean_effort'] / max_effort) if max_effort > 0 else 0
+        
+        # Reliability: success rate
+        reliability = summary['success_rate']
+        
+        # Convergence: same as reliability for discrete
+        convergence = summary['success_rate']
+        
+        spider_data[algo_name] = [
+            round(max(0, min(1, quality)), 4),
+            round(max(0, min(1, speed)), 4),
+            round(max(0, min(1, efficiency)), 4),
+            round(reliability, 4),
+            round(convergence, 4)
+        ]
+    
+    return spider_data
+
+def is_discrete_problem(problem_name):
+    """Check if a problem is discrete based on its name."""
+    return problem_name in DISCRETE_PROBLEMS
 
 def main():
     # Define all experiment configurations
@@ -18,9 +79,11 @@ def main():
         ("config/rastrigin_experiment.yaml", "rastrigin_results.txt"),
         ("config/rosenbrock_experiment.yaml", "rosenbrock_results.txt"),
         ("config/griewank_experiment.yaml", "griewank_results.txt"),
-        # Discrete problems
+        # Discrete problems - Classical + Metaheuristic
         ("config/grid_pathfinding.yaml", "grid_pathfinding_results.txt"),
         ("config/n_queens.yaml", "n_queens_results.txt"),
+        ("config/tsp.yaml", "tsp_results.txt"),
+        ("config/knapsack.yaml", "knapsack_results.txt"),
     ]
     
     txt_dir = "data/summary_results"
@@ -63,9 +126,17 @@ def main():
             print(f"\n  [+] Saved txt: {output_path}")
             
             # Vẽ đồ thị & lưu vào folder plots
-            plot_path = os.path.join(plots_dir, f"{problem_name}_radar.png")
-            plot_continuous_radar(problem_name, results, plot_path)
-            print(f"    [+] Saved HEXAGON radar chart: {plot_path}")
+            if is_discrete_problem(problem_name):
+                # Use discrete spider chart
+                spider_data = convert_results_to_spider_data(results)
+                chart_path = os.path.join(plots_dir, f"{problem_name}_spider.png")
+                create_spider_chart(spider_data, title=f"{problem_name.upper()} - Algorithm Comparison", save_path=chart_path)
+                print(f"  [+] Saved discrete chart: {chart_path}")
+            else:
+                # Use continuous radar chart
+                plot_path = os.path.join(plots_dir, f"{problem_name}_radar.png")
+                plot_continuous_radar(problem_name, results, plot_path)
+                print(f"    [+] Saved continuous chart: {plot_path}")
             
         except Exception as e:
             print(f"ERROR running {config_path}: {str(e)}")
