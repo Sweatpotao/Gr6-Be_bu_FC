@@ -328,3 +328,168 @@ Success rate    : 100.00%
 Mean time (s)   : 1.645001e-05
 Mean effort     : 8.00
 
+============================================================
+Experiment time : 2026-03-02 00:06:16.282475
+Algorithm       : BFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.760000e-05
+Mean effort     : 9.00
+
+============================================================
+Experiment time : 2026-03-02 00:06:16.283625
+Algorithm       : DFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 5.167500e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:06:16.284425
+Algorithm       : UCS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.309000e-04
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:06:16.285538
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.077500e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-03-02 00:06:16.287192
+Algorithm       : AStar
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.705000e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-03-02 00:21:50.157004
+Algorithm       : BFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 1.086500e-04
+Mean effort     : 9.00
+
+============================================================
+Experiment time : 2026-03-02 00:21:50.158034
+Algorithm       : DFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.490000e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:21:50.159171
+Algorithm       : UCS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.927500e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:21:50.160391
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 5.522500e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-03-02 00:21:50.161066
+Algorithm       : AStar
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 2.940000e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-03-02 00:35:21.788243
+Algorithm       : BFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 4.727500e-05
+Mean effort     : 9.00
+
+============================================================
+Experiment time : 2026-03-02 00:35:21.789506
+Algorithm       : DFS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 6.305000e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:35:21.790530
+Algorithm       : UCS
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 6.195000e-05
+Mean effort     : 10.00
+
+============================================================
+Experiment time : 2026-03-02 00:35:21.791235
+Algorithm       : Greedy
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.485000e-05
+Mean effort     : 8.00
+
+============================================================
+Experiment time : 2026-03-02 00:35:21.791928
+Algorithm       : AStar
+Runs            : 4
+Best score      : 6.000000
+Mean score      : 6.000000
+Std score       : 0.000000
+Success rate    : 100.00%
+Mean time (s)   : 3.395000e-05
+Mean effort     : 8.00
+

@@ -78,9 +78,9 @@ def main():
     print(f"\nAll results saved in: {txt_dir}/ and {plots_dir}/")
     
     # Print final summary table
-    print("\n" + "=" * 70)
+    print("\n" + "=" * 95)
     print("FINAL SUMMARY TABLE")
-    print("=" * 70)
+    print("=" * 95)
     print(f"{'Problem':<25} {'Algorithm':<20} {'Best':<12} {'Mean':<12} {'Time(s)':<10} {'Effort':<10} {'Success':<8}")
     print("-" * 95)
     
