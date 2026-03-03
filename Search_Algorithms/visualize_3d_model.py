@@ -71,120 +71,128 @@ class TracerWrapper:
 # ==========================================
 def main():
     # --- MENU CHỌN BÀI TOÁN ---
-    print("=== CHỌN BÀI TOÁN ===")
-    prob_names = list(PROBLEM_CONFIGS.keys())
-    for i, name in enumerate(prob_names):
-        print(f"{i+1}. {name.capitalize()}")
-    
-    prob_choice = int(input(f"Nhập số (1-{len(prob_names)}): ")) - 1
-    selected_prob_name = prob_names[prob_choice % len(prob_names)]
-    
-    # --- MENU CHỌN THUẬT TOÁN ---
-    print("\n=== CHỌN THUẬT TOÁN ===")
-    for i, algo in enumerate(CONTINUOUS_ALGOS):
-        print(f"{i+1}. {algo}")
-    print(f"{len(CONTINUOUS_ALGOS) + 1}. CHẠY TẤT CẢ")
-    
-    algo_choice = int(input(f"Nhập số (1-{len(CONTINUOUS_ALGOS) + 1}): ")) - 1
-    
-    # Quyết định danh sách thuật toán sẽ chạy
-    if algo_choice == len(CONTINUOUS_ALGOS):
-        selected_algos = CONTINUOUS_ALGOS # Chạy tất cả
-    else:
-        selected_algos = [CONTINUOUS_ALGOS[algo_choice]] # Chỉ chạy 1 cái đã chọn
-    
-    # Khởi tạo bài toán gốc 2D
-    ProblemClass = PROBLEM_REGISTRY[selected_prob_name]
-    real_problem = ProblemClass(**PROBLEM_CONFIGS[selected_prob_name])
-    bounds = PROBLEM_CONFIGS[selected_prob_name]["bounds"]
-    bound_val = bounds[0][1] # Lấy giá trị biên dương
-    
-    print(f"\n Khởi động 3D trên hàm: {selected_prob_name.upper()}")
-    
-    # Chạy các thuật toán (1 cái hoặc nhiều cái tùy lựa chọn)
-    algo_paths = {}
-    
-    for algo_name in selected_algos:
-        if algo_name not in ALGORITHM_REGISTRY:
-            print(f"  [!] Bỏ qua {algo_name} vì không có trong REGISTRY.")
-            continue
-            
-        print(f"  [-] Đang chạy {algo_name}...")
-        AlgoClass = ALGORITHM_REGISTRY[algo_name]
+    while 1:
+        print("=== CHỌN BÀI TOÁN ===")
+        prob_names = list(PROBLEM_CONFIGS.keys())
+        print("0. Exit")
+        for i, name in enumerate(prob_names):
+            print(f"{i+1}. {name.capitalize()}")
         
-        # Bọc điệp viên vào bài toán
-        tracer = TracerWrapper(real_problem)
-        optimizer = AlgoClass(tracer, ALGO_CONFIG)
-        optimizer.run()
+        prob_choice = int(input(f"Nhập số (0-{len(prob_names)}): ")) - 1
+        if prob_choice == -1:
+            print("Thoát chương trình...")
+            break
+
+        selected_prob_name = prob_names[prob_choice % len(prob_names)]
         
-        # Trích xuất "Quỹ đạo tốt nhất" (Chỉ lấy điểm khi fitness cải thiện)
-        path_x, path_y, path_z = [], [], []
-        current_best = float('inf')
-        for px, py, pz in tracer.explored_points:
-            if pz < current_best:
-                current_best = pz
-                path_x.append(px)
-                path_y.append(py)
-                path_z.append(pz)
+        # --- MENU CHỌN THUẬT TOÁN ---
+        print("\n=== CHỌN THUẬT TOÁN ===")
+        for i, algo in enumerate(CONTINUOUS_ALGOS):
+            print(f"{i+1}. {algo}")
+        print(f"{len(CONTINUOUS_ALGOS) + 1}. CHẠY TẤT CẢ")
+        
+        algo_choice = int(input(f"Nhập số (1-{len(CONTINUOUS_ALGOS) + 1}): ")) - 1
+        
+        # Quyết định danh sách thuật toán sẽ chạy
+        if algo_choice == len(CONTINUOUS_ALGOS):
+            selected_algos = CONTINUOUS_ALGOS # Chạy tất cả
+        else:
+            selected_algos = [CONTINUOUS_ALGOS[algo_choice]] # Chỉ chạy 1 cái đã chọn
+        
+        # Khởi tạo bài toán gốc 2D
+        ProblemClass = PROBLEM_REGISTRY[selected_prob_name]
+        real_problem = ProblemClass(**PROBLEM_CONFIGS[selected_prob_name])
+        bounds = PROBLEM_CONFIGS[selected_prob_name]["bounds"]
+        bound_val = bounds[0][1] # Lấy giá trị biên dương
+        
+        print(f"\n Khởi động 3D trên hàm: {selected_prob_name.upper()}")
+        
+        # Chạy các thuật toán (1 cái hoặc nhiều cái tùy lựa chọn)
+        algo_paths = {}
+        
+        for algo_name in selected_algos:
+            if algo_name not in ALGORITHM_REGISTRY:
+                print(f"  [!] Bỏ qua {algo_name} vì không có trong REGISTRY.")
+                continue
                 
-        algo_paths[algo_name] = (path_x, path_y, path_z)
+            print(f"  [-] Đang chạy {algo_name}...")
+            AlgoClass = ALGORITHM_REGISTRY[algo_name]
+            
+            # Bọc điệp viên vào bài toán
+            tracer = TracerWrapper(real_problem)
+            optimizer = AlgoClass(tracer, ALGO_CONFIG)
+            optimizer.run()
+            
+            # Trích xuất "Quỹ đạo tốt nhất" (Chỉ lấy điểm khi fitness cải thiện)
+            path_x, path_y, path_z = [], [], []
+            current_best = float('inf')
+            for px, py, pz in tracer.explored_points:
+                if pz < current_best:
+                    current_best = pz
+                    path_x.append(px)
+                    path_y.append(py)
+                    path_z.append(pz)
+                    
+            algo_paths[algo_name] = (path_x, path_y, path_z)
 
 # ==========================================
 # 4. VẼ ĐỒ THỊ 3D VÀ BẬT TƯƠNG TÁC
 # ==========================================
-    print("\nĐang tạo đồ thị 3D...")
-    
-    # Tạo lưới mặt cong
-    x_vals = np.linspace(-bound_val, bound_val, 100)
-    y_vals = np.linspace(-bound_val, bound_val, 100)
-    X, Y = np.meshgrid(x_vals, y_vals)
-    
-    # Lấy lưới Z bằng cách dò tay qua hàm gốc
-    Z = np.zeros_like(X)
-    for i in range(X.shape[0]):
-        for j in range(X.shape[1]):
-            Z[i, j] = real_problem.evaluate(np.array([X[i, j], Y[i, j]]))
-
-    fig = plt.figure(figsize=(12, 9))
-    ax = fig.add_subplot(111, projection='3d')
-    
-    # Vẽ mặt cong
-    ax.plot_surface(X, Y, Z, cmap='plasma', edgecolor='none', alpha=0.2)
-    
-    # Vẽ quỹ đạo của TỪNG thuật toán
-    colors = plt.cm.tab10.colors # Bộ 10 màu phân biệt của matplotlib
-    for i, (algo_name, (px, py, pz)) in enumerate(algo_paths.items()):
-        if len(px) == 0: continue
-        c = colors[i % len(colors)]
+        print("\nĐang tạo đồ thị 3D...")
         
-        # Nâng đường đi lên để nổi rõ trên mặt cong
-        z_offset = np.max(Z) * 0.05
-        ax.plot(px, py, np.array(pz) + z_offset, color=c, linewidth=2, marker='.', markersize=6, label=algo_name)
-        # Đánh dấu điểm kết thúc
-        if i == 0:
-            ax.scatter(px[-1], py[-1], pz[-1] + z_offset,
-                    color=c, marker='*', s=150,
-                    edgecolors='black',
-                    label='Final Point (*)')
+        # Tạo lưới mặt cong
+        x_vals = np.linspace(-bound_val, bound_val, 100)
+        y_vals = np.linspace(-bound_val, bound_val, 100)
+        X, Y = np.meshgrid(x_vals, y_vals)
+        
+        # Lấy lưới Z bằng cách dò tay qua hàm gốc
+        Z = np.zeros_like(X)
+        for i in range(X.shape[0]):
+            for j in range(X.shape[1]):
+                Z[i, j] = real_problem.evaluate(np.array([X[i, j], Y[i, j]]))
+
+        fig = plt.figure(figsize=(12, 9))
+        ax = fig.add_subplot(111, projection='3d')
+        
+        # Vẽ mặt cong
+        ax.plot_surface(X, Y, Z, cmap='plasma', edgecolor='none', alpha=0.2)
+        
+        # Vẽ quỹ đạo của TỪNG thuật toán
+        colors = plt.cm.tab10.colors # Bộ 10 màu phân biệt của matplotlib
+        for i, (algo_name, (px, py, pz)) in enumerate(algo_paths.items()):
+            if len(px) == 0: continue
+            c = colors[i % len(colors)]
+            
+            # Nâng đường đi lên để nổi rõ trên mặt cong
+            z_offset = np.max(Z) * 0.05
+            ax.plot(px, py, np.array(pz) + z_offset, color=c, linewidth=2, marker='.', markersize=6, label=algo_name)
+            # Đánh dấu điểm kết thúc
+            if i == 0:
+                ax.scatter(px[-1], py[-1], pz[-1] + z_offset,
+                        color=c, marker='*', s=150,
+                        edgecolors='black',
+                        label='Final Point (*)')
+            else:
+                ax.scatter(px[-1], py[-1], pz[-1] + z_offset, color=c, marker='*', s=150, edgecolors='black')
+
+        # Đánh dấu mục tiêu tối thượng (0, 0) - Thường đáy của hàm benchmark nằm ở (0,0) hoặc (1,1)
+        if selected_prob_name == "rosenbrock":
+            ax.scatter(1, 1, 0.2, color='red', marker='.', s=200, label='Global Optimum (1,1)')
         else:
-            ax.scatter(px[-1], py[-1], pz[-1] + z_offset, color=c, marker='*', s=150, edgecolors='black')
+            ax.scatter(0, 0, 0.2, color='red', marker='.', s=200, label='Global Optimum (0,0)')
 
-    # Đánh dấu mục tiêu tối thượng (0, 0) - Thường đáy của hàm benchmark nằm ở (0,0) hoặc (1,1)
-    if selected_prob_name == "rosenbrock":
-        ax.scatter(1, 1, 0.2, color='red', marker='.', s=200, label='Global Optimum (1,1)')
-    else:
-        ax.scatter(0, 0, 0.2, color='red', marker='.', s=200, label='Global Optimum (0,0)')
+        ax.set_title(f"Algorithm on {selected_prob_name.upper()} Landscape", fontsize=16, fontweight='bold')
+        ax.set_xlabel('X1')
+        ax.set_ylabel('X2')
+        ax.set_zlabel('Fitness')
+        
+        # Tinh chỉnh chú thích (Legend)
+        ax.legend(loc='upper right', bbox_to_anchor=(1.2, 1), title="Algorithms")
+        
+        print("Mở cửa sổ thành công! Có thể tương tác với đồ thị.\n\n")
+        plt.show()
 
-    ax.set_title(f"Algorithm on {selected_prob_name.upper()} Landscape", fontsize=16, fontweight='bold')
-    ax.set_xlabel('X1')
-    ax.set_ylabel('X2')
-    ax.set_zlabel('Fitness')
-    
-    # Tinh chỉnh chú thích (Legend)
-    ax.legend(loc='upper right', bbox_to_anchor=(1.2, 1), title="Algorithms")
-    
-    print("Mở cửa sổ thành công! Có thể tương tác với đồ thị.")
-    plt.show()
+    print("Thoát chương trình thành công.")
 
 if __name__ == "__main__":
     main()
