@@ -21,9 +21,20 @@ class ExperimentRunner:
 
             result["runtime"] = runtime
 
-            if result["found"]:
-                scores.append(result["final_score"])
-                successes.append(1)
+            if result.get("found", False):
+                score = result.get("final_score")
+                if score is not None:
+                    scores.append(score)
+                    # Phân biệt bài toán Liên tục & Rời rạc
+                    if "evaluations" in result:
+                        if score < 1:  # Epsilon = 1 vì best score của nhiều thuật toán chỉ ở mức 0.5 - 0.6 (không chạm đáy tuyệt đối)
+                            successes.append(1)
+                        else:
+                            successes.append(0) # Kẹt ở cực trị địa phương
+                    else:
+                        successes.append(1)
+                else:
+                    successes.append(0)
             else:
                 successes.append(0)
 

@@ -31,11 +31,6 @@ algorithms:
     limit: 100
     max_iters: 1000
     max_evaluations: 10000
-  ACO:
-    archive_size: 30
-    sample_size: 20
-    max_iters: 1000
-    max_evaluations: 10000
   CuckooSearch:
     n_nests: 25
     pa: 0.25
