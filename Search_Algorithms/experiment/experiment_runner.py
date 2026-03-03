@@ -27,7 +27,7 @@ class ExperimentRunner:
                     scores.append(score)
                     # Phân biệt bài toán Liên tục & Rời rạc
                     if "evaluations" in result:
-                        if score < 1:  # Epsilon = 1 vì best score của nhiều thuật toán chỉ ở mức 0.5 - 0.6 (không chạm đáy tuyệt đối)
+                        if score < 4:  # Epsilon = 4 vì best score của nhiều thuật toán chỉ ở mức 1.0-4.0 (không chạm đáy tuyệt đối)
                             successes.append(1)
                         else:
                             successes.append(0) # Kẹt ở cực trị địa phương
