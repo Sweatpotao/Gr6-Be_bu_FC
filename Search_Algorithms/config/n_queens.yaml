@@ -1,10 +1,9 @@
 experiment:
-  runs: 4
+  runs: 30
 
 problem:
   name: n_queens
   params:
-    n: 5
     n: 5
 
 algorithms:
@@ -12,13 +11,6 @@ algorithms:
     timeout: 60  # Giới hạn 60 giây
   DFS:
     depth_limit: 1000
-    timeout: 60
-  UCS:
-    timeout: 60
-  Greedy:
-    timeout: 60
-  AStar:
-    timeout: 60
     timeout: 60
   UCS:
     timeout: 60

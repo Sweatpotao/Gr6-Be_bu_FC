@@ -32,6 +32,7 @@ from algorithms.evolution.ga_tsp import GeneticAlgorithmTSP
 from algorithms.swarm.abc import ABC
 from algorithms.swarm.abc_knapsack import ABC_Knapsack
 from algorithms.swarm.aco import ACO
+from algorithms.swarm.aco_discrete import ACO_Discrete
 from algorithms.swarm.cuckoo import CuckooSearch
 from algorithms.swarm.firefly import FireflyAlgorithm
 from algorithms.swarm.pso import PSO
@@ -72,7 +73,8 @@ ALGORITHM_REGISTRY = {
     "GA_TSP": GeneticAlgorithmTSP,                  # Discrete (TSP-specific)
     "DE": DifferentialEvolution,                    # Continuous
     # Swarm
-    "ACO": ACO,                                     # Discrete
+    "ACO": ACO,                                     # Continuous (ACOR)
+    "ACO_Discrete": ACO_Discrete,                   # Discrete (various discrete problems)
     "ABC": ABC,                                     # Continuous
     "ABC_Knapsack": ABC_Knapsack,                   # Discrete (Knapsack-specific)
     "CuckooSearch": CuckooSearch,                   # Continuous
