@@ -1,66 +1,20 @@
-============================================================
-Experiment time : 2026-02-28 19:32:28.273702
-Algorithm       : Greedy
-Runs            : 4
-Best score      : -525.000000
-Mean score      : -525.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 2.557700e-03
-Mean effort     : 2080.00
+==============================================================================================================
+RESULTS FOR: KNAPSACK
+Generated: 2026-03-04 21:25:34
+==============================================================================================================
 
-============================================================
-Experiment time : 2026-02-28 19:32:28.273994
-Algorithm       : UCS
-Runs            : 4
-Best score      : -475.000000
-Mean score      : -475.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 2.170001e-05
-Mean effort     : 21.00
+Algorithm          | Best Score     | Mean Score     | Std Dev      | Time (s)     | Effort     | Success Rate   | Runs    
+---------------------------------------------------------------------------------------------------------------------------
+Greedy             | -525.000000    | -525.000000    | 0.000000     | 0.002142     | 2080.0     | 100.00%        | 30      
+UCS                | -475.000000    | -475.000000    | 0.000000     | 0.000017     | 21.0       | 100.00%        | 30      
+BFS                | 0.000000       | 0.000000       | 0.000000     | 0.000738     | 1307.0     | 100.00%        | 30      
+AStar              | -525.000000    | -525.000000    | 0.000000     | 0.000031     | 26.0       | 100.00%        | 30      
+ABC_Knapsack       | -525.000000    | -513.166667    | 5.983774     | 0.338158     | 0.0        | 100.00%        | 30      
+TLBO_Knapsack      | -525.000000    | -519.833333    | 6.517072     | 0.336845     | 0.0        | 100.00%        | 30      
+ACO_Discrete       | -525.000000    | -525.000000    | 0.000000     | 0.261225     | 0.0        | 100.00%        | 30      
 
-============================================================
-Experiment time : 2026-02-28 19:32:28.276826
-Algorithm       : BFS
-Runs            : 4
-Best score      : 0.000000
-Mean score      : 0.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 8.220750e-04
-Mean effort     : 1307.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:28.277062
-Algorithm       : AStar
-Runs            : 4
-Best score      : -525.000000
-Mean score      : -525.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 4.402497e-05
-Mean effort     : 26.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:28.277307
-Algorithm       : ABC_Knapsack
-Runs            : 4
-Best score      : -525.000000
-Mean score      : -520.000000
-Std score       : 5.000000
-Success rate    : 100.00%
-Mean time (s)   : 3.296793e-01
-Mean effort     : 0.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:28.277510
-Algorithm       : TLBO_Knapsack
-Runs            : 4
-Best score      : -525.000000
-Mean score      : -518.750000
-Std score       : 10.825318
-Success rate    : 100.00%
-Mean time (s)   : 3.443464e-01
-Mean effort     : 0.00
-
+==============================================================================================================
+Note: Each row represents one algorithm. Columns are the evaluation metrics.
+      Best Score = Best solution found | Mean Score = Average solution quality
+      Std Dev = Standard deviation | Time (s) = Average runtime in seconds
+      Effort = Average number of evaluations | Success Rate = Percentage of successful runs

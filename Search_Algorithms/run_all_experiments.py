@@ -14,6 +14,10 @@ from visualization import (
     generate_3d_surface_from_problem,
     generate_summary_report,
 )
+from visualization.sensitivity_analysis import ParameterSensitivityAnalyzer
+from experiment.registry import PROBLEM_REGISTRY, ALGORITHM_REGISTRY
+import yaml
+import copy
 import os
 from datetime import datetime
 from pathlib import Path
@@ -72,6 +76,133 @@ def save_results_as_table(results: dict, output_path: str, problem_name: str = "
         f.write("      Effort = Average number of evaluations | Success Rate = Percentage of successful runs\n")
     
     print(f"  [+] Saved table format: {output_path}")
+
+
+def run_sensitivity_analysis(problem_name: str, config_path: str, results: dict, output_dir: str = "data/sensitivity_analysis"):
+    """
+    Run parameter sensitivity analysis for metaheuristic algorithms.
+    Only analyzes the best performing metaheuristic algorithm for each problem.
+    
+    Args:
+        problem_name: Name of the problem
+        config_path: Path to the YAML config file
+        results: Experiment results dict {algorithm_name: metrics}
+        output_dir: Directory to save sensitivity analysis results
+    """
+    # Metaheuristic algorithms that have tunable parameters
+    METAHEURISTIC_ALGOS = {
+        'GA_TSP', 'GA', 'DE', 'PSO', 'ACO', 'ACO_Discrete',
+        'ABC', 'ABC_Knapsack', 'TLBO', 'TLBO_Knapsack',
+        'CuckooSearch', 'FireflyAlgorithm',
+        'SimulatedAnnealing', 'SimulatedAnnealingTSP',
+        'HillClimbing', 'HillClimbingTSP'
+    }
+    
+    # Filter results to only include metaheuristics
+    meta_results = {k: v for k, v in results.items() if k in METAHEURISTIC_ALGOS}
+    
+    if not meta_results:
+        print(f"  [!] No metaheuristic algorithms found for sensitivity analysis")
+        return
+    
+    # Find best metaheuristic algorithm (by best_score, lower is better)
+    best_algo = min(meta_results.items(), key=lambda x: x[1].get('best_score', float('inf')) if x[1].get('best_score') is not None else float('inf'))[0]
+    
+    print(f"\n  [{'='*68}]")
+    print(f"  Running Sensitivity Analysis for {best_algo} on {problem_name}")
+    print(f"  [{'='*68}]")
+    
+    try:
+        # Load config to get problem parameters
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+        
+        # Create problem instance
+        prob_name = config['problem']['name']
+        prob_params = config['problem']['params']
+        ProblemClass = PROBLEM_REGISTRY[prob_name]
+        problem = ProblemClass(**prob_params)
+        
+        # Get algorithm class
+        AlgoClass = ALGORITHM_REGISTRY[best_algo]
+        
+        # Define parameter ranges for sensitivity analysis
+        # These are common parameters for metaheuristic algorithms
+        param_configs = {
+            'GA_TSP': {
+                'pop_size': [20, 50, 100],
+                'mutation_rate': [0.05, 0.1, 0.2]
+            },
+            'GA': {
+                'pop_size': [20, 50, 100],
+                'mutation_rate': [0.05, 0.1, 0.2]
+            },
+            'DE': {
+                'pop_size': [20, 50, 100],
+                'F': [0.5, 0.8, 1.0]
+            },
+            'PSO': {
+                'pop_size': [20, 50, 100],
+                'c1': [1.0, 2.0, 2.5]
+            },
+            'ACO_Discrete': {
+                'n_ants': [20, 50, 100],
+                'alpha': [0.5, 1.0, 2.0]
+            },
+            'ABC': {
+                'pop_size': [20, 50, 100],
+                'limit': [50, 100, 200]
+            },
+            'ABC_Knapsack': {
+                'pop_size': [20, 50, 100],
+                'limit': [50, 100, 200]
+            },
+            'TLBO': {
+                'pop_size': [20, 50, 100],
+            },
+            'TLBO_Knapsack': {
+                'pop_size': [20, 50, 100],
+            },
+            'SimulatedAnnealingTSP': {
+                'initial_temp': [500, 1000, 2000],
+            },
+            'SimulatedAnnealing': {
+                'initial_temp': [500, 1000, 2000],
+            }
+        }
+        
+        # Get default algo config from YAML
+        algo_config = config.get('algorithms', {}).get(best_algo, {})
+        
+        # Create analyzer
+        analyzer = ParameterSensitivityAnalyzer(AlgoClass, problem)
+        
+        # Run 1D sensitivity analysis for available parameters
+        param_ranges = param_configs.get(best_algo, {})
+        
+        if param_ranges:
+            for param_name, param_values in param_ranges.items():
+                print(f"    Analyzing {param_name}: {param_values}")
+                try:
+                    analyzer.analyze_1d(
+                        param_name, 
+                        param_values, 
+                        fixed_params=algo_config,
+                        n_runs=3  # Reduced runs for faster execution
+                    )
+                except Exception as e:
+                    print(f"      [!] Failed to analyze {param_name}: {e}")
+        
+        # Save results
+        os.makedirs(output_dir, exist_ok=True)
+        analyzer.plot_results(output_dir=os.path.join(output_dir, problem_name))
+        print(f"  [+] Sensitivity analysis saved to: {output_dir}/{problem_name}/")
+        
+    except Exception as e:
+        print(f"  [!] Sensitivity analysis failed: {e}")
+        import traceback
+        traceback.print_exc()
+
 
 def convert_results_to_spider_data(results):
     """
@@ -259,6 +390,9 @@ def main():
             else:
                 # Use continuous radar chart
                 plot_radar_chart(problem_name, results, plots_dir)
+            
+            # Run sensitivity analysis for metaheuristic algorithms
+            run_sensitivity_analysis(problem_name, config_path, results)
             
         except Exception as e:
             print(f"ERROR running {config_path}: {str(e)}")

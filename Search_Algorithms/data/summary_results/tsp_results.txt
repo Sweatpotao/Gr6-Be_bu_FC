@@ -1,77 +1,21 @@
-============================================================
-Experiment time : 2026-02-28 19:32:25.220201
-Algorithm       : BFS
-Runs            : 4
-Best score      : 345.000000
-Mean score      : 345.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 4.836900e-03
-Mean effort     : 2306.00
+==============================================================================================================
+RESULTS FOR: TSP
+Generated: 2026-03-04 21:24:58
+==============================================================================================================
 
-============================================================
-Experiment time : 2026-02-28 19:32:25.220531
-Algorithm       : UCS
-Runs            : 4
-Best score      : 354.000000
-Mean score      : 354.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 1.376368e-02
-Mean effort     : 7377.00
+Algorithm          | Best Score     | Mean Score     | Std Dev      | Time (s)     | Effort     | Success Rate   | Runs    
+---------------------------------------------------------------------------------------------------------------------------
+BFS                | 345.000000     | 345.000000     | 0.000000     | 0.003870     | 2306.0     | 100.00%        | 30      
+UCS                | 354.000000     | 354.000000     | 0.000000     | 0.008912     | 7377.0     | 100.00%        | 30      
+Greedy             | 296.000000     | 296.000000     | 0.000000     | 0.010929     | 3053.0     | 100.00%        | 30      
+AStar              | 342.000000     | 342.000000     | 0.000000     | 0.017194     | 5235.0     | 100.00%        | 30      
+GA_TSP             | 255.000000     | 255.000000     | 0.000000     | 0.365410     | 0.0        | 100.00%        | 30      
+HillClimbingTSP    | 274.000000     | 352.566667     | 27.092045    | 0.000995     | 0.0        | 100.00%        | 30      
+SimulatedAnnealingTSP | 255.000000     | 256.800000     | 2.675818     | 0.035330     | 0.0        | 100.00%        | 30      
+ACO_Discrete       | 255.000000     | 255.400000     | 0.663325     | 1.953292     | 0.0        | 100.00%        | 30      
 
-============================================================
-Experiment time : 2026-02-28 19:32:25.223421
-Algorithm       : Greedy
-Runs            : 4
-Best score      : 296.000000
-Mean score      : 296.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 1.083660e-02
-Mean effort     : 3053.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:25.223675
-Algorithm       : AStar
-Runs            : 4
-Best score      : 342.000000
-Mean score      : 342.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 1.823482e-02
-Mean effort     : 5235.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:25.223887
-Algorithm       : GA_TSP
-Runs            : 4
-Best score      : 255.000000
-Mean score      : 255.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 3.636325e-01
-Mean effort     : 0.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:25.224095
-Algorithm       : HillClimbingTSP
-Runs            : 4
-Best score      : 329.000000
-Mean score      : 351.250000
-Std score       : 16.783548
-Success rate    : 100.00%
-Mean time (s)   : 1.042025e-03
-Mean effort     : 0.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:25.224283
-Algorithm       : SimulatedAnnealingTSP
-Runs            : 4
-Best score      : 255.000000
-Mean score      : 256.500000
-Std score       : 2.598076
-Success rate    : 100.00%
-Mean time (s)   : 3.522208e-02
-Mean effort     : 0.00
-
+==============================================================================================================
+Note: Each row represents one algorithm. Columns are the evaluation metrics.
+      Best Score = Best solution found | Mean Score = Average solution quality
+      Std Dev = Standard deviation | Time (s) = Average runtime in seconds
+      Effort = Average number of evaluations | Success Rate = Percentage of successful runs

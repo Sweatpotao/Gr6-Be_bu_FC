@@ -25,7 +25,10 @@ try:
     try:
         plt.style.use('seaborn-v0_8-whitegrid')
     except:
-        plt.style.use('seaborn-whitegrid')
+        try:
+            plt.style.use('seaborn-whitegrid')
+        except:
+            pass  # Use default matplotlib style
 except ImportError:
     HAS_SEABORN = False
     warnings.warn("Seaborn not installed. Using matplotlib default styles.")
@@ -98,16 +101,18 @@ def plot_parameter_sensitivity_1d(
     ax.grid(True, alpha=0.3)
     
     # Add annotation for best value
-    for algo, scores in results.items():
-        if scores:
-            best_idx = np.argmin(scores)  # Assuming minimization
-            best_val = param_values[best_idx]
-            best_score = scores[best_idx]
-            ax.annotate(f'Best: {best_val}', 
-                       xy=(best_val, best_score),
-                       xytext=(10, 10), textcoords='offset points',
-                       fontsize=8, alpha=0.7,
-                       arrowprops=dict(arrowstyle='->', alpha=0.5))
+    if param_values:  # Check param_values is not empty
+        for algo, scores in results.items():
+            if scores:
+                best_idx = np.argmin(scores)  # Assuming minimization
+                if best_idx < len(param_values):
+                    best_val = param_values[best_idx]
+                    best_score = scores[best_idx]
+                    ax.annotate(f'Best: {best_val}', 
+                               xy=(best_val, best_score),
+                               xytext=(10, 10), textcoords='offset points',
+                               fontsize=8, alpha=0.7,
+                               arrowprops=dict(arrowstyle='->', alpha=0.5))
     
     plt.tight_layout()
     
@@ -165,9 +170,23 @@ def plot_parameter_sensitivity_2d(
     
     if plot_type == "heatmap":
         # Create heatmap
-        sns.heatmap(results_matrix, annot=True, fmt='.1f', cmap='RdYlGn_r',
-                   xticklabels=param2_values, yticklabels=param1_values,
-                   ax=ax, cbar_kws={'label': 'Score (lower is better)'})
+        if HAS_SEABORN:
+            sns.heatmap(results_matrix, annot=True, fmt='.1f', cmap='RdYlGn_r',
+                       xticklabels=param2_values, yticklabels=param1_values,
+                       ax=ax, cbar_kws={'label': 'Score (lower is better)'})
+        else:
+            # Fallback to matplotlib imshow
+            im = ax.imshow(results_matrix, cmap='RdYlGn_r', aspect='auto')
+            # Add text annotations
+            for i in range(len(param1_values)):
+                for j in range(len(param2_values)):
+                    text = ax.text(j, i, f'{results_matrix[i, j]:.1f}',
+                                  ha="center", va="center", color="black", fontsize=8)
+            ax.set_xticks(range(len(param2_values)))
+            ax.set_yticks(range(len(param1_values)))
+            ax.set_xticklabels(param2_values)
+            ax.set_yticklabels(param1_values)
+            plt.colorbar(im, ax=ax, label='Score (lower is better)')
         ax.set_xlabel(param2_name.replace('_', ' ').title(), fontweight='bold')
         ax.set_ylabel(param1_name.replace('_', ' ').title(), fontweight='bold')
         
@@ -371,7 +390,8 @@ class ParameterSensitivityAnalyzer:
                     
                     if result.get('found'):
                         score = result.get('final_score', float('inf'))
-                        run_scores.append(abs(score))
+                        # Use raw score (assumes minimization problem)
+                        run_scores.append(score)
                 except Exception as e:
                     warnings.warn(f"Run failed for {param_name}={value}: {e}")
                     run_scores.append(float('inf'))
@@ -427,7 +447,8 @@ class ParameterSensitivityAnalyzer:
                         
                         if result.get('found'):
                             score = result.get('final_score', float('inf'))
-                            run_scores.append(abs(score))
+                            # Use raw score (assumes minimization problem)
+                            run_scores.append(score)
                     except Exception as e:
                         warnings.warn(f"Run failed for {param1_name}={val1}, {param2_name}={val2}: {e}")
                         run_scores.append(float('inf'))
@@ -474,15 +495,29 @@ class ParameterSensitivityAnalyzer:
             )
             plt.close()
         
+        # Helper function to convert numpy types to Python native types
+        def convert_to_native(obj):
+            if isinstance(obj, np.integer):
+                return int(obj)
+            elif isinstance(obj, np.floating):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, dict):
+                return {k: convert_to_native(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_to_native(item) for item in obj]
+            return obj
+        
         # Save results to JSON
         results_json = {
             'algorithm': algo_name,
-            '1d_analysis': self.results_1d,
+            '1d_analysis': convert_to_native(self.results_1d),
             '2d_analysis': {
                 f"{k[0]}_vs_{k[1]}": {
-                    'param1_values': v['param1_values'],
-                    'param2_values': v['param2_values'],
-                    'results_matrix': v['results_matrix'].tolist()
+                    'param1_values': convert_to_native(v['param1_values']),
+                    'param2_values': convert_to_native(v['param2_values']),
+                    'results_matrix': convert_to_native(v['results_matrix'])
                 }
                 for k, v in self.results_2d.items()
             }

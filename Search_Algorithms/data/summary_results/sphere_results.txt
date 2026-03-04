@@ -1,154 +1,23 @@
-============================================================
-Experiment time : 2026-02-25 13:14:17.660550
-Algorithm       : HillClimbing
-Runs            : 4
-Best score      : 0.481582
-Mean score      : 0.687108
-Std score       : 0.242633
-Success rate    : 100.00%
-Mean time (s)   : 3.215725e-03
-Mean effort     : 196.00
+==============================================================================================================
+RESULTS FOR: SPHERE
+Generated: 2026-03-04 21:22:25
+==============================================================================================================
 
-============================================================
-Experiment time : 2026-02-25 13:14:17.660859
-Algorithm       : SimulatedAnnealing
-Runs            : 4
-Best score      : 0.009469
-Mean score      : 0.014335
-Std score       : 0.004240
-Success rate    : 100.00%
-Mean time (s)   : 1.277830e-02
-Mean effort     : 2001.00
+Algorithm          | Best Score     | Mean Score     | Std Dev      | Time (s)     | Effort     | Success Rate   | Runs    
+---------------------------------------------------------------------------------------------------------------------------
+HillClimbing       | 0.285099       | 0.595377       | 0.296243     | 0.000956     | 168.3      | 100.00%        | 30      
+SimulatedAnnealing | 0.005491       | 0.014753       | 0.003432     | 0.010636     | 2001.0     | 100.00%        | 30      
+ABC                | 0.000000       | 0.000000       | 0.000000     | 0.103485     | 10000.0    | 100.00%        | 30      
+ACO                | 0.000000       | 0.000000       | 0.000000     | 0.197955     | 10000.0    | 100.00%        | 30      
+CuckooSearch       | 0.003881       | 0.015589       | 0.007240     | 0.073874     | 10000.0    | 100.00%        | 30      
+FireflyAlgorithm   | 0.292417       | 0.569197       | 0.128892     | 0.121232     | 10000.0    | 100.00%        | 30      
+PSO                | 0.000000       | 0.000000       | 0.000000     | 0.036406     | 10000.0    | 100.00%        | 30      
+GA                 | 0.000021       | 0.000103       | 0.000056     | 0.195021     | 10000.0    | 100.00%        | 30      
+DE                 | 0.018877       | 0.069488       | 0.030046     | 0.245271     | 10000.0    | 100.00%        | 30      
+TLBO               | 0.000000       | 0.000000       | 0.000000     | 0.115286     | 10000.0    | 100.00%        | 30      
 
-============================================================
-Experiment time : 2026-02-25 13:15:51.317826
-Algorithm       : HillClimbing
-Runs            : 4
-Best score      : 0.565988
-Mean score      : 0.794536
-Std score       : 0.276027
-Success rate    : 100.00%
-Mean time (s)   : 2.528350e-03
-Mean effort     : 156.00
-
-============================================================
-Experiment time : 2026-02-25 13:15:51.319989
-Algorithm       : SimulatedAnnealing
-Runs            : 4
-Best score      : 0.014253
-Mean score      : 0.019029
-Std score       : 0.003950
-Success rate    : 100.00%
-Mean time (s)   : 1.292072e-02
-Mean effort     : 2001.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.401985
-Algorithm       : HillClimbing
-Runs            : 4
-Best score      : 0.642592
-Mean score      : 0.706164
-Std score       : 0.064008
-Success rate    : 100.00%
-Mean time (s)   : 3.915615e-02
-Mean effort     : 181.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.405127
-Algorithm       : SimulatedAnnealing
-Runs            : 4
-Best score      : 0.012085
-Mean score      : 0.015464
-Std score       : 0.003447
-Success rate    : 100.00%
-Mean time (s)   : 1.052152e-02
-Mean effort     : 2001.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.405379
-Algorithm       : ABC
-Runs            : 4
-Best score      : 0.000000
-Mean score      : 0.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 8.981580e-02
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.405597
-Algorithm       : ACO
-Runs            : 4
-Best score      : 0.000000
-Mean score      : 0.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 1.250971e-01
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.405820
-Algorithm       : CuckooSearch
-Runs            : 4
-Best score      : 0.013175
-Mean score      : 0.016611
-Std score       : 0.004415
-Success rate    : 100.00%
-Mean time (s)   : 3.464247e-02
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.406056
-Algorithm       : FireflyAlgorithm
-Runs            : 4
-Best score      : 0.399971
-Mean score      : 0.511975
-Std score       : 0.075553
-Success rate    : 100.00%
-Mean time (s)   : 9.238927e-02
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.406277
-Algorithm       : PSO
-Runs            : 4
-Best score      : 0.000000
-Mean score      : 0.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 2.420180e-02
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.406464
-Algorithm       : GA
-Runs            : 4
-Best score      : 0.000029
-Mean score      : 0.000118
-Std score       : 0.000088
-Success rate    : 100.00%
-Mean time (s)   : 1.367537e-01
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.406705
-Algorithm       : DE
-Runs            : 4
-Best score      : 0.072159
-Mean score      : 0.086047
-Std score       : 0.012443
-Success rate    : 100.00%
-Mean time (s)   : 1.714464e-01
-Mean effort     : 10000.00
-
-============================================================
-Experiment time : 2026-02-28 19:32:11.406952
-Algorithm       : TLBO
-Runs            : 4
-Best score      : 0.000000
-Mean score      : 0.000000
-Std score       : 0.000000
-Success rate    : 100.00%
-Mean time (s)   : 8.931095e-02
-Mean effort     : 10000.00
-
+==============================================================================================================
+Note: Each row represents one algorithm. Columns are the evaluation metrics.
+      Best Score = Best solution found | Mean Score = Average solution quality
+      Std Dev = Standard deviation | Time (s) = Average runtime in seconds
+      Effort = Average number of evaluations | Success Rate = Percentage of successful runs
