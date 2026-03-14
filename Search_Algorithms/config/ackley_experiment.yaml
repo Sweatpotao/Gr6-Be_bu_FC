@@ -1,5 +1,5 @@
 experiment:
-  runs: 20
+  runs: 30
 
 problem:
   name: ackley

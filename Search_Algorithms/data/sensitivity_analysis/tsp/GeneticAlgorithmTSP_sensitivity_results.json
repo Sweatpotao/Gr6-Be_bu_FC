@@ -1,0 +1,50 @@
+{
+  "algorithm": "GeneticAlgorithmTSP",
+  "1d_analysis": {
+    "pop_size": {
+      "values": [
+        20,
+        50,
+        100
+      ],
+      "mean_scores": [
+        255.0,
+        255.0,
+        255.0
+      ],
+      "std_scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "best_scores": [
+        255,
+        255,
+        255
+      ]
+    },
+    "mutation_rate": {
+      "values": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "mean_scores": [
+        255.0,
+        255.0,
+        255.0
+      ],
+      "std_scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "best_scores": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "2d_analysis": {}
+}

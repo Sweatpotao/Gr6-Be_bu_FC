@@ -43,15 +43,17 @@ from experiment.registry import PROBLEM_REGISTRY, ALGORITHM_REGISTRY
 # Define problem-specific algorithm compatibility
 # Algorithms that only work with specific problems
 PROBLEM_SPECIFIC_ALGORITHMS = {
-    'tsp': ['GA_TSP', 'HillClimbingTSP', 'SimulatedAnnealingTSP'],
-    'knapsack': ['ABC_Knapsack', 'TLBO_Knapsack'],
+    'tsp': ['GA_TSP', 'HillClimbingTSP', 'SimulatedAnnealingTSP', 'ACO_Discrete'],
+    'knapsack': ['ABC_Knapsack', 'TLBO_Knapsack', 'ACO_Discrete'],
 }
 
 # Reverse mapping: algorithm -> compatible problems
 ALGORITHM_COMPATIBILITY = {}
 for problem, algos in PROBLEM_SPECIFIC_ALGORITHMS.items():
     for algo in algos:
-        ALGORITHM_COMPATIBILITY[algo] = [problem]
+        if algo not in ALGORITHM_COMPATIBILITY:
+            ALGORITHM_COMPATIBILITY[algo] = []
+        ALGORITHM_COMPATIBILITY[algo].append(problem)
 
 def check_algorithm_compatibility(algorithms, problem_name):
     """
@@ -70,8 +72,9 @@ def check_algorithm_compatibility(algorithms, problem_name):
         if compatible_problems is not None:
             # This is a problem-specific algorithm
             if problem_name not in compatible_problems:
+                problems_str = ', '.join(compatible_problems)
                 warnings.append(
-                    f"WARNING: '{algo}' is designed for {compatible_problems[0]} problems, "
+                    f"WARNING: '{algo}' is designed for {problems_str} problems, "
                     f"not for '{problem_name}'. It may not work correctly or produce invalid results."
                 )
             else:
