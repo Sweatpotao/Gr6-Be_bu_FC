@@ -29,6 +29,7 @@ from problems.discrete.grid_pathfinding import GridPathfinding
 from problems.discrete.n_queens import NQueens
 from problems.discrete.tsp import TSP
 from problems.discrete.knapsack import Knapsack
+from problems.discrete.graph_coloring import GraphColoring
 
 
 class DiscreteComparator:
@@ -85,6 +86,17 @@ class DiscreteComparator:
                         weights = [random.randint(5, 50) for _ in range(n_items)]
                         capacity = sum(weights) // 2
                         problem = Knapsack(values=values, weights=weights, capacity=capacity)
+                    elif problem_name == "Graph Coloring":
+                        # Simple graph with 5 nodes
+                        adjacency_matrix = [
+                            [0, 1, 1, 0, 0],
+                            [1, 0, 1, 1, 0],
+                            [1, 1, 0, 1, 1],
+                            [0, 1, 1, 0, 1],
+                            [0, 0, 1, 1, 0]
+                        ]
+                        num_colors = 3
+                        problem = GraphColoring(adjacency_matrix=adjacency_matrix, num_colors=num_colors)
                     else:
                         problem = problem_instance
                     
@@ -241,7 +253,7 @@ def main():
     """Main entry point for discrete algorithm comparison."""
     print("Discrete Algorithm Comparison")
     print("Algorithms: BFS, DFS, UCS, Greedy, A*")
-    print("Problems: Grid Pathfinding, N-Queens, TSP, Knapsack")
+    print("Problems: Grid Pathfinding, N-Queens, TSP, Knapsack, Graph Coloring")
     
     comparator = DiscreteComparator()
     
@@ -274,6 +286,17 @@ def main():
     capacity = sum(weights) // 2
     knapsack_problem = Knapsack(values=values, weights=weights, capacity=capacity)
     comparator.run_comparison("Knapsack", knapsack_problem, runs=5)
+    
+    # Graph Coloring (5 nodes, 3 colors)
+    adjacency_matrix = [
+        [0, 1, 1, 0, 0],
+        [1, 0, 1, 1, 0],
+        [1, 1, 0, 1, 1],
+        [0, 1, 1, 0, 1],
+        [0, 0, 1, 1, 0]
+    ]
+    graph_coloring_problem = GraphColoring(adjacency_matrix=adjacency_matrix, num_colors=3)
+    comparator.run_comparison("Graph Coloring", graph_coloring_problem, runs=5)
     
     # Generate and print report
     report = comparator.generate_report()

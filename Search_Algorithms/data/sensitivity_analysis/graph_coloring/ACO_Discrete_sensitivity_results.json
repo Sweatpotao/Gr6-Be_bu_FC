@@ -1,0 +1,50 @@
+{
+  "algorithm": "ACO_Discrete",
+  "1d_analysis": {
+    "n_ants": {
+      "values": [
+        20,
+        50,
+        100
+      ],
+      "mean_scores": [
+        Infinity,
+        Infinity,
+        Infinity
+      ],
+      "std_scores": [
+        NaN,
+        NaN,
+        NaN
+      ],
+      "best_scores": [
+        Infinity,
+        Infinity,
+        Infinity
+      ]
+    },
+    "alpha": {
+      "values": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "mean_scores": [
+        Infinity,
+        Infinity,
+        Infinity
+      ],
+      "std_scores": [
+        NaN,
+        NaN,
+        NaN
+      ],
+      "best_scores": [
+        Infinity,
+        Infinity,
+        Infinity
+      ]
+    }
+  },
+  "2d_analysis": {}
+}

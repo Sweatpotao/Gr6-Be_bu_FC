@@ -304,6 +304,115 @@ def plot_nqueens_objective_surface(
     return fig
 
 
+def plot_graph_coloring_objective_surface(
+    adjacency_matrix: List[List[int]],
+    num_colors: int,
+    sample_points: int = 2000,
+    title: str = "Graph Coloring Objective Function Landscape",
+    save_path: Optional[str] = None,
+    figsize: Tuple[int, int] = (12, 9)
+):
+    """
+    Create 3D visualization of Graph Coloring objective function.
+    
+    Visualizes:
+    - X: Number of colored nodes
+    - Y: Color diversity (number of different colors used)
+    - Z: Number of conflicts (objective to minimize)
+    
+    Args:
+        adjacency_matrix: Adjacency matrix of the graph
+        num_colors: Number of available colors
+        sample_points: Number of random colorings to sample
+        title: Chart title
+        save_path: Path to save figure
+        figsize: Figure size
+    """
+    n_nodes = len(adjacency_matrix)
+    np.random.seed(42)
+    
+    # Generate random colorings (partial and complete)
+    samples = []
+    for _ in range(sample_points):
+        # Generate a random coloring (-1 means uncolored, 0 to num_colors-1 are colors)
+        coloring = []
+        colored_count = 0
+        for _ in range(n_nodes):
+            if np.random.random() < 0.8:  # 80% chance of being colored
+                color = np.random.randint(0, num_colors)
+                coloring.append(color)
+                colored_count += 1
+            else:
+                coloring.append(-1)  # Uncolored
+        
+        coloring_tuple = tuple(coloring)
+        conflicts = count_graph_coloring_conflicts(coloring_tuple, adjacency_matrix)
+        unique_colors = len(set(c for c in coloring if c != -1))
+        
+        samples.append((colored_count, unique_colors, conflicts))
+    
+    samples = np.array(samples)
+    x = samples[:, 0]  # Number of colored nodes
+    y = samples[:, 1]  # Color diversity
+    z = samples[:, 2]  # Number of conflicts
+    
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_subplot(111, projection='3d')
+    
+    # Create scatter with color based on conflicts (green = good, red = bad)
+    scatter = ax.scatter(x, y, z, c=z, cmap='RdYlGn_r', s=40, alpha=0.6,
+                        edgecolors='black', linewidth=0.3)
+    
+    # Add surface interpolation
+    try:
+        from scipy.interpolate import griddata
+        xi = np.linspace(x.min(), x.max(), 30)
+        yi = np.linspace(y.min(), y.max(), 30)
+        xi, yi = np.meshgrid(xi, yi)
+        zi = griddata((x, y), z, (xi, yi), method='linear', fill_value=np.max(z))
+        ax.plot_surface(xi, yi, zi, alpha=0.3, cmap='RdYlGn_r',
+                       rstride=1, cstride=1, antialiased=True)
+    except ImportError:
+        pass
+    
+    ax.set_xlabel('Number of Colored Nodes', fontweight='bold')
+    ax.set_ylabel('Color Diversity', fontweight='bold')
+    ax.set_zlabel('Number of Conflicts', fontweight='bold')
+    ax.set_title(title, fontsize=14, fontweight='bold', pad=20)
+    
+    cbar = plt.colorbar(scatter, ax=ax, shrink=0.5, aspect=10)
+    cbar.set_label('Conflicts (lower is better)', fontweight='bold')
+    
+    # Mark zero conflict solutions (valid colorings)
+    zero_conflict_mask = z == 0
+    if np.any(zero_conflict_mask):
+        ax.scatter(x[zero_conflict_mask], y[zero_conflict_mask], z[zero_conflict_mask],
+                  c='green', s=200, marker='*', edgecolors='black', linewidth=2,
+                  label=f'Valid Solutions: {np.sum(zero_conflict_mask)}')
+        ax.legend()
+    
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"Saved Graph Coloring 3D surface to {save_path}")
+    
+    return fig
+
+
+def count_graph_coloring_conflicts(coloring: Tuple[int, ...], adjacency_matrix: List[List[int]]) -> int:
+    """Count number of edge conflicts in a graph coloring."""
+    n = len(coloring)
+    conflicts = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            # If there's an edge and both nodes have the same color (and both are colored)
+            if adjacency_matrix[i][j] == 1 and coloring[i] != -1 and coloring[j] != -1:
+                if coloring[i] == coloring[j]:
+                    conflicts += 1
+    return conflicts
+
+
 def count_nqueens_conflicts(board: Tuple[int, ...]) -> int:
     """Count number of attacking queen pairs."""
     n = len(board)
@@ -500,6 +609,18 @@ def create_3d_visualization_suite(
             save_path=str(output_path / f"nqueens_{n}_3d_surface.png")
         )
         plt.close()
+    
+    elif problem_type.lower() == 'graph_coloring':
+        adjacency_matrix = problem_data.get('adjacency_matrix')
+        num_colors = problem_data.get('num_colors', 3)
+        
+        if adjacency_matrix is not None:
+            plot_graph_coloring_objective_surface(
+                adjacency_matrix, num_colors,
+                title=f"Graph Coloring: Objective Function Landscape",
+                save_path=str(output_path / "graph_coloring_3d_surface.png")
+            )
+            plt.close()
     
     print(f"3D visualizations saved to {output_path}")
     return output_path

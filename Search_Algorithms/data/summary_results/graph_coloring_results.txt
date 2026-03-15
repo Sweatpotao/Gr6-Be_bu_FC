@@ -1,0 +1,18 @@
+==============================================================================================================
+RESULTS FOR: GRAPH_COLORING
+Generated: 2026-03-15 17:32:57
+==============================================================================================================
+
+Algorithm          | Best Score     | Mean Score     | Std Dev      | Time (s)     | Effort     | Success Rate   | Runs    
+---------------------------------------------------------------------------------------------------------------------------
+BFS                | 6.000000       | 6.000000       | 0.000000     | 0.000045     | 29.0       | 100.00%        | 30      
+UCS                | 6.000000       | 6.000000       | 0.000000     | 0.000047     | 29.0       | 100.00%        | 30      
+Greedy             | 6.000000       | 6.000000       | 0.000000     | 0.000015     | 7.0        | 100.00%        | 30      
+AStar              | 6.000000       | 6.000000       | 0.000000     | 0.000047     | 29.0       | 100.00%        | 30      
+ACO_Discrete       | inf            | inf            | nan          | 0.092675     | 25000.0    | 0.00%          | 30      
+
+==============================================================================================================
+Note: Each row represents one algorithm. Columns are the evaluation metrics.
+      Best Score = Best solution found | Mean Score = Average solution quality
+      Std Dev = Standard deviation | Time (s) = Average runtime in seconds
+      Effort = Average number of evaluations | Success Rate = Percentage of successful runs

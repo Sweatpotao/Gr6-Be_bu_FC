@@ -32,6 +32,7 @@ from . import (
     plot_tsp_objective_surface,
     plot_knapsack_objective_surface,
     plot_nqueens_objective_surface,
+    plot_graph_coloring_objective_surface,
     create_3d_visualization_suite,
 )
 
@@ -301,6 +302,31 @@ def generate_3d_surface_from_problem(
             )
             plt.close()
             print("    - N-Queens 3D surface")
+        
+        elif problem_name.lower() == 'graph_coloring':
+            # Generate sample graph coloring data
+            import random
+            random.seed(42)
+            n_nodes = 6
+            # Create a simple graph adjacency matrix
+            adjacency_matrix = [
+                [0, 1, 1, 0, 0, 0],
+                [1, 0, 1, 1, 0, 0],
+                [1, 1, 0, 1, 1, 0],
+                [0, 1, 1, 0, 1, 1],
+                [0, 0, 1, 1, 0, 1],
+                [0, 0, 0, 1, 1, 0]
+            ]
+            num_colors = 3
+            
+            plot_graph_coloring_objective_surface(
+                adjacency_matrix, num_colors,
+                sample_points=3000,
+                title=f"{problem_name}: Objective Function Landscape",
+                save_path=str(surface_dir / "graph_coloring_3d_surface.png")
+            )
+            plt.close()
+            print("    - Graph Coloring 3D surface")
             
     except Exception as e:
         print(f"    - 3D surface failed: {e}")

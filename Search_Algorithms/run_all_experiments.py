@@ -343,6 +343,7 @@ def main():
         ("config/n_queens.yaml", "n_queens_results.txt"),
         ("config/tsp.yaml", "tsp_results.txt"),
         ("config/knapsack.yaml", "knapsack_results.txt"),
+        ("config/graph_coloring.yaml", "graph_coloring_results.txt"),
     ]
     
     txt_dir = "data/summary_results"
